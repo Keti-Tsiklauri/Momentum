@@ -1,9 +1,10 @@
-function App() {
-  console.log(1);
+import Header from "./components/Header";
+function App({ employees, tasks }) {
+  console.log(employees);
+
   return (
     <div>
-      <p>lets start</p>
-      <p>to code</p>
+      <Header />
     </div>
   );
 }

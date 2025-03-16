@@ -1,0 +1,118 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 120px;
+}
+.icon p {
+  /* Momentum */
+
+  width: 168px;
+  height: 38px;
+
+  font-family: "Fredoka One";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 31px;
+  line-height: 38px;
+  /* identical to box height */
+
+  color: #8338ec;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.icon img {
+  /* Hourglass */
+
+  width: 38px;
+  height: 38px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+.buttons :nth-child(1) {
+  /* Frame 171 */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 10px;
+
+  width: 225px;
+  height: 39px;
+
+  background: #ffffff;
+  border: 1px solid #8338ec;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.buttons :nth-child(2) {
+  /* Frame 170 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 4px;
+
+  width: 268px;
+  height: 40px;
+
+  background: #8338ec;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.buttons :nth-child(1) {
+  /* თანამშრომლის შექმნა */
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  /* Grey SHades/Headlines */
+  color: #212529;
+}
+.buttons :nth-child(2) {
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #ffffff;
+}
+.buttons {
+  display: flex;
+  width: 533px;
+  justify-content: space-between;
+}
+.buttons * {
+  cursor: pointer;
+}
