@@ -1,0 +1,373 @@
+/* Header styles */
+.header p {
+  position: absolute;
+  width: 373px;
+  height: 41px;
+  top: 140px;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 41px;
+  color: #212529;
+}
+
+/* Container for all status sections */
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Each status section container */
+.statusContainer {
+  margin-top: 150px;
+}
+
+/* Status divs for each status (custom backgrounds) */
+.statusDiv_1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0;
+  gap: 10px;
+  width: 381px;
+  height: 54px;
+  background: #f7bc30;
+  border-radius: 10px;
+}
+
+.statusDiv_2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0;
+  gap: 10px;
+  width: 381px;
+  height: 54px;
+  background: rgba(251, 86, 7, 1);
+  border-radius: 10px;
+}
+
+.statusDiv_3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0;
+  gap: 10px;
+  width: 381px;
+  height: 54px;
+  background: rgba(255, 0, 110, 1);
+  border-radius: 10px;
+}
+
+.statusDiv_4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0;
+  gap: 10px;
+  width: 381px;
+  height: 54px;
+  background: rgba(58, 134, 255, 1);
+  border-radius: 10px;
+}
+
+/* Status header texts (for each status) */
+.statusHeader_1,
+.statusHeader_2,
+.statusHeader_4 {
+  width: 107px;
+  height: 24px;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+}
+.statusHeader_3 {
+  height: 24px;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* Tasks containers for each status */
+.tasks_1 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 28px;
+  width: 381px;
+  height: 217px;
+  background: #ffffff;
+  border: 1px solid #f7bc30;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+.tasks_2 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 28px;
+  width: 381px;
+  height: 217px;
+  background: #ffffff;
+  border: 1px solid #fb5607;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+.tasks_3 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 28px;
+  width: 381px;
+  height: 217px;
+  background: #ffffff;
+  border: 1px solid #ff006e;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+.tasks_4 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 28px;
+  width: 381px;
+  height: 217px;
+  background: #ffffff;
+  border: 1px solid #3a86ff;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+/* Box inside each task (top row) */
+.box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 48px;
+  width: 341px;
+  height: 26px;
+}
+
+/* Box for name and description */
+.box1 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Task name */
+.name {
+  display: block;
+  width: 100%;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  color: #212529;
+  margin: 0;
+}
+
+/* Task description */
+.description {
+  width: 320px;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #343a40;
+  margin: 0;
+}
+
+/* Footer for each task */
+.tasksFooter {
+  position: absolute;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 266px;
+  width: 341px;
+  height: 31px;
+  padding-bottom: 15px;
+}
+
+/* Avatar image */
+.img {
+  margin: 0 auto;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+}
+
+/* No tasks message */
+.noTasks {
+  font-family: "FiraGO";
+  font-size: 16px;
+  color: #343a40;
+}
+
+/* Priority styles */
+/* Priority 1 */
+.priority_1 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+  gap: 4px;
+  width: 86px;
+  height: 26px;
+  background: #ffffff;
+  border: 0.5px solid #08a508;
+  border-radius: 5px;
+}
+
+/* Priority 2 */
+.priority_2 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+  gap: 4px;
+  width: 86px;
+  height: 26px;
+  background: #ffffff;
+  border: 0.5px solid #ffbe0b;
+  border-radius: 4px;
+}
+
+/* Priority 3 */
+.priority_3 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+  gap: 4px;
+  width: 86px;
+  height: 26px;
+  background: #ffffff;
+  border: 0.5px solid rgba(250, 77, 77, 1);
+  border-radius: 4px;
+}
+.tasks_1,
+.tasks_2,
+.tasks_3,
+.tasks_4 {
+  position: relative;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.footer p {
+  /* 8 */
+
+  width: 8px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Headlines */
+  color: #212529;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.priorityType_1 {
+  /* დაბალი */
+
+  width: 49px;
+  height: 18px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 150%;
+  /* identical to box height, or 18px */
+
+  /* Green */
+  color: #08a508;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.priorityType_3 {
+  /* მაღალი */
+
+  width: 48px;
+  height: 18px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 150%;
+  /* identical to box height, or 18px */
+
+  color: #fa4d4d;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.priorityType_2 {
+  /* საშუალო */
+
+  width: 56px;
+  height: 18px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 150%;
+  /* identical to box height, or 18px */
+
+  color: #ffbe0b;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}

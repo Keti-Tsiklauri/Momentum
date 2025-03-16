@@ -6,10 +6,11 @@ export const GlobalContext = createContext();
 // Create a provider component
 export const GlobalProvider = ({ children }) => {
   const [employees, setEmployees] = useState([]);
-  const [tasks, setTasks] = useState([]); // New state to store tasks
+  const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [statuses, setStatuses] = useState([]);
+  const [priorities, setPriorities] = useState([]);
   // Fetch employees data when the component mounts
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -20,7 +21,7 @@ export const GlobalProvider = ({ children }) => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer 9e708294-02a4-4443-9c47-74e761f1334f", // Ensure the token is correct
+              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
             },
           }
         );
@@ -30,12 +31,12 @@ export const GlobalProvider = ({ children }) => {
         }
 
         const data = await response.json();
-        console.log("Fetched employees data:", data); // Debug: Check the data
-        setEmployees(data); // Set the fetched data to state
+
+        setEmployees(data);
       } catch (err) {
-        setError(err.message); // Set the error message if there's an issue
+        setError(err.message);
       } finally {
-        setLoading(false); // Set loading to false when the request is done
+        setLoading(false);
       }
     };
 
@@ -52,7 +53,7 @@ export const GlobalProvider = ({ children }) => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer 9e708294-02a4-4443-9c47-74e761f1334f", // Ensure the token is correct
+              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a", // Ensure the token is correct
             },
           }
         );
@@ -62,8 +63,8 @@ export const GlobalProvider = ({ children }) => {
         }
 
         const data = await response.json();
-        console.log("Fetched tasks data:", data); // Debug: Check the data
-        setTasks(data); // Set the fetched task data to state
+
+        setTasks(data);
       } catch (err) {
         setError(err.message); // Set the error message if there's an issue
       } finally {
@@ -73,9 +74,75 @@ export const GlobalProvider = ({ children }) => {
 
     fetchTasks();
   }, []); // Empty dependency array ensures this effect runs once on mount
+  //fetch statuses
+  useEffect(() => {
+    const fetchStatuses = async () => {
+      try {
+        const response = await fetch(
+          "https://momentum.redberryinternship.ge/api/statuses",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
+            },
+          }
+        );
 
+        if (!response.ok) {
+          throw new Error("Failed to fetch task data");
+        }
+
+        const data = await response.json();
+
+        setStatuses(data); // Set the fetched task data to state
+      } catch (err) {
+        setError(err.message); // Set the error message if there's an issue
+      } finally {
+        setLoading(false); // Set loading to false when the request is done
+      }
+    };
+
+    fetchStatuses();
+  }, []); // Empty dependency array ensures this effect runs once on mount
+
+  //fetch priorities
+  useEffect(() => {
+    const fetchPriorities = async () => {
+      try {
+        const response = await fetch(
+          "https://momentum.redberryinternship.ge/api/priorities",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch priorities data");
+        }
+
+        const data = await response.json();
+
+        setPriorities(data); // Set the fetched task data to state
+        console.log("prioriteti", priorities);
+      } catch (err) {
+        setError(err.message); // Set the error message if there's an issue
+      } finally {
+        setLoading(false); // Set loading to false when the request is done
+      }
+    };
+
+    fetchPriorities();
+  }, []); // Empty dependency array ensures this effect runs once on mount
+  console.log("prio", priorities);
   return (
-    <GlobalContext.Provider value={{ employees, tasks, loading, error }}>
+    <GlobalContext.Provider
+      value={{ employees, tasks, loading, error, statuses, priorities }}
+    >
       {children}
     </GlobalContext.Provider>
   );
