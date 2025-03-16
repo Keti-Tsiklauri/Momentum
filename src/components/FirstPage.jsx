@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import styles from "./firstPage.module.css";
 import { GlobalContext } from "../context/globalContext";
+import DropDown from "./DropDown";
 
 export default function FirstPage() {
   const { tasks, statuses } = useContext(GlobalContext);
@@ -36,7 +37,7 @@ export default function FirstPage() {
       <div className={styles.header}>
         <p>დავალებების გვერდი</p>
       </div>
-
+      <DropDown />
       {/* Loop through only the first 4 statuses */}
       <div className={styles.container}>
         {statuses.slice(0, 4).map((status) => {

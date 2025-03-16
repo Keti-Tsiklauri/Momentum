@@ -11,6 +11,8 @@ export const GlobalProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [statuses, setStatuses] = useState([]);
   const [priorities, setPriorities] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [showDepartmentSelector, setShowDepartmentSelector] = useState(false);
   // Fetch employees data when the component mounts
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -139,9 +141,53 @@ export const GlobalProvider = ({ children }) => {
     fetchPriorities();
   }, []); // Empty dependency array ensures this effect runs once on mount
   console.log("prio", priorities);
+  //fetch departments
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await fetch(
+          "https://momentum.redberryinternship.ge/api/departments",
+
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch priorities data");
+        }
+
+        const data = await response.json();
+
+        setDepartments(data); // Set the fetched task data to state
+        console.log("prioriteti", priorities);
+      } catch (err) {
+        setError(err.message); // Set the error message if there's an issue
+      } finally {
+        setLoading(false); // Set loading to false when the request is done
+      }
+    };
+
+    fetchDepartments();
+  }, []); // Empty dependency array ensures this effect runs once on mount
+  console.log("dep", departments);
   return (
     <GlobalContext.Provider
-      value={{ employees, tasks, loading, error, statuses, priorities }}
+      value={{
+        employees,
+        tasks,
+        loading,
+        error,
+        statuses,
+        priorities,
+        departments,
+        showDepartmentSelector,
+        setShowDepartmentSelector,
+      }}
     >
       {children}
     </GlobalContext.Provider>
