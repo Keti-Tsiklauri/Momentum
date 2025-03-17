@@ -64,28 +64,7 @@
   order: 0;
   flex-grow: 0;
 }
-.buttons :nth-child(2) {
-  /* Frame 170 */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  gap: 4px;
-
-  width: 268px;
-  height: 40px;
-
-  background: #8338ec;
-  border-radius: 5px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
 .buttons :nth-child(1) {
   /* თანამშრომლის შექმნა */
 
@@ -114,4 +93,77 @@
 }
 .buttons * {
   cursor: pointer;
+}
+link {
+  text-decoration: none;
+}
+.buttonOne {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 10px;
+
+  width: 225px;
+  height: 39px;
+
+  background: #ffffff;
+  border: 1px solid #8338ec;
+  border-radius: 5px;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #212529;
+
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.buttonTwo {
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 10px;
+
+  width: 225px;
+  height: 39px;
+
+  background: #ffffff;
+  border: 1px solid #8338ec;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 10px;
+
+  width: 268px;
+  height: 40px;
+
+  background: #8338ec;
+  border-radius: 5px;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #ffffff;
+
+  cursor: pointer;
+  text-decoration: none;
 }

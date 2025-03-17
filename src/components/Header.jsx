@@ -1,4 +1,5 @@
 import styles from "./header.module.css";
+import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <div className={styles.header}>
@@ -7,8 +8,11 @@ export default function Header() {
         <img src="public/images/Hourglass.png" height="30px" width="30px" />
       </div>
       <div className={styles.buttons}>
-        <button>თანამშრომლის შექმნა</button>
-        <button>+ შექმენი ახალი დავალება</button>
+        <Link className={styles.buttonOne}>თანამშრომლის შექმნა</Link>
+
+        <Link to="/createtask" className={styles.buttonTwo}>
+          + შექმენი ახალი დავალება
+        </Link>
       </div>
     </div>
   );
