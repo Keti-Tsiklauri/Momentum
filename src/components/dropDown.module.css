@@ -34,3 +34,8 @@
   height: 8px;
   transition: opacity 0.3s ease-in-out;
 }
+.clickedElement {
+  color: rgba(131, 56, 236, 1);
+  transition: color 0.3s ease-in-out;
+  font-size: 18px;
+}

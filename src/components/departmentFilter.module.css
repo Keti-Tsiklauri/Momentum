@@ -148,3 +148,6 @@ button {
 .show {
   display: flex; /* or block/grid depending on your layout */
 }
+.buttonOpacity {
+  opacity: 0.7;
+}
