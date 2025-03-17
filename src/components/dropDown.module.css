@@ -39,3 +39,61 @@
   transition: color 0.3s ease-in-out;
   font-size: 18px;
 }
+.filtered {
+  margin-top: 180px;
+  display: flex;
+  gap: 10px;
+}
+.filter {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  gap: 4px;
+
+  width: auto; /* Let width adjust based on content */
+  min-width: 93px;
+  height: 29px;
+
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 43px;
+
+  overflow: hidden; /* Prevents elements from spilling out */
+}
+
+img {
+  /* x */
+
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.p {
+  cursor: pointer;
+
+  width: 90px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-size: 14px;
+  line-height: 16px;
+  /* identical to box height */
+  text-align: center;
+
+  /* Grey SHades/Subheadlines */
+  color: #343a40;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.filtered {
+  min-height: 70px; /* Adjust this based on your layout */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}

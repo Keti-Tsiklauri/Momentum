@@ -1,25 +1,25 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../context/globalContext";
-import styles from "./departmentFilter.module.css";
+import styles from "./employeesFilter.module.css";
 
-export default function DepartmentFilter() {
+export default function EmployeesFilter() {
   const {
-    showDepartmentSelector,
-    setShowDepartmentSelector,
+    tasks,
+    showEmployeesSelector,
+    setShowEmployeesSelector,
     setFilteredArray,
     setClickedIndex,
-    tasks,
   } = useContext(GlobalContext);
 
   const containerRef = useRef(null);
-  const [selectedDepartments, setSelectedDepartments] = useState([]);
+  const buttonRef = useRef(null);
+  const [selectedEmployees, setSelectedEmployees] = useState([]);
 
-  // Extract unique departments from tasks
-  const departmentOptions = [
-    ...new Map(
-      tasks.map((task) => [task.department.id, task.department.name])
-    ).values(),
-  ];
+  useEffect(() => {
+    if (showEmployeesSelector) {
+      setSelectedEmployees([]);
+    }
+  }, [showEmployeesSelector]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -27,37 +27,40 @@ export default function DepartmentFilter() {
         containerRef.current &&
         !containerRef.current.contains(event.target)
       ) {
-        setShowDepartmentSelector(false);
+        setShowEmployeesSelector(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [setShowDepartmentSelector]);
+  }, [setShowEmployeesSelector]);
 
-  function handleCheckboxChange(event, department) {
+  const uniqueEmployees = [
+    ...new Map(tasks.map((item) => [item.employee.id, item.employee])).values(),
+  ];
+
+  function handleCheckboxChange(event, employee) {
     const checked = event.target.checked;
-    setSelectedDepartments((prev) =>
-      checked ? [...prev, department] : prev.filter((d) => d !== department)
+    setSelectedEmployees((prevSelected) =>
+      checked
+        ? [...prevSelected, employee]
+        : prevSelected.filter((emp) => emp.id !== employee.id)
     );
   }
 
   function handleButtonClick() {
-    if (selectedDepartments.length > 0) {
+    if (selectedEmployees.length > 0) {
       setFilteredArray((prevFiltered) => {
         const updatedFiltered = [
           ...prevFiltered.filter(
-            (item) => !departmentOptions.includes(item.name)
-          ), // Remove old department filters
-          ...selectedDepartments.map((department) => ({
-            name: department,
-            type: "department",
-          })),
+            (item) => !uniqueEmployees.some((e) => e.id === item.id)
+          ),
+          ...selectedEmployees,
         ];
         return updatedFiltered;
       });
 
-      setShowDepartmentSelector(false);
+      setShowEmployeesSelector(false);
       setClickedIndex(null);
     }
   }
@@ -65,28 +68,29 @@ export default function DepartmentFilter() {
   return (
     <div
       ref={containerRef}
-      className={showDepartmentSelector ? styles.show : styles.hidden}
+      className={showEmployeesSelector ? styles.show : styles.hidden}
     >
       <div className={styles.container}>
         <div className={styles.mainBox}>
-          {departmentOptions.map((department, index) => (
+          {uniqueEmployees.map((elem, index) => (
             <div className={styles.box} key={index}>
               <input
                 type="checkbox"
-                id={`department-${index}`}
+                id={`emp-${index}`}
                 className={styles.checkbox}
-                checked={selectedDepartments.includes(department)}
-                onChange={(e) => handleCheckboxChange(e, department)}
+                checked={selectedEmployees.some((emp) => emp.id === elem.id)}
+                onChange={(e) => handleCheckboxChange(e, elem)}
               />
-              <label htmlFor={`department-${index}`} className={styles.label}>
-                {department}
+              <label htmlFor={`emp-${index}`} className={styles.emp}>
+                {elem.name} {elem.surname}
               </label>
             </div>
           ))}
         </div>
         <button
+          ref={buttonRef}
           className={
-            selectedDepartments.length > 0
+            selectedEmployees.length > 0
               ? styles.activeButton
               : styles.buttonOpacity
           }
