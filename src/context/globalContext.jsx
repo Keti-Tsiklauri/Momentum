@@ -13,7 +13,8 @@ export const GlobalProvider = ({ children }) => {
   const [priorities, setPriorities] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [showDepartmentSelector, setShowDepartmentSelector] = useState(false);
-  const [filterArray, setFilterArray] = useState([]);
+  const [showPrioritiesSelector, setShowPrioritiesSelector] = useState(true);
+  const [filteredArray, setFilteredArray] = useState([]);
   const [clickedIndex, setClickedIndex] = useState(null);
   // Fetch employees data when the component mounts
   useEffect(() => {
@@ -189,10 +190,12 @@ export const GlobalProvider = ({ children }) => {
         departments,
         showDepartmentSelector,
         setShowDepartmentSelector,
-        filterArray,
-        setFilterArray,
+        filteredArray,
+        setFilteredArray,
         clickedIndex,
         setClickedIndex,
+        showPrioritiesSelector,
+        setShowPrioritiesSelector,
       }}
     >
       {children}

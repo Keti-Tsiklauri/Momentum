@@ -7,17 +7,15 @@ export default function DepartmentFilter() {
     tasks,
     showDepartmentSelector,
     setShowDepartmentSelector,
-    filterArray,
-    setFilterArray,
-    clickedIndex,
+    filteredArray,
+    setFilteredArray,
     setClickedIndex,
   } = useContext(GlobalContext);
 
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
   const [selectedDepartments, setSelectedDepartments] = useState([]);
-
-  // Close dropdown when clicking outside
+  console.log("filteredarray", filteredArray);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -40,58 +38,36 @@ export default function DepartmentFilter() {
     ).values(),
   ];
 
-  // Check if any checkbox is checked and update the selected departments
   function handleCheckboxChange(event, department) {
     const checked = event.target.checked;
-    let updatedSelection = [];
-
-    if (checked) {
-      updatedSelection = [...selectedDepartments, department];
-    } else {
-      updatedSelection = selectedDepartments.filter(
-        (dept) => dept.id !== department.id
-      );
-    }
-
-    setSelectedDepartments(updatedSelection);
-
-    // Enable or disable the button based on selection
-    if (buttonRef.current) {
-      if (updatedSelection.length > 0) {
-        buttonRef.current.classList.remove(styles.buttonOpacity);
-      } else {
-        buttonRef.current.classList.add(styles.buttonOpacity);
-      }
-    }
+    setSelectedDepartments((prevSelected) =>
+      checked
+        ? [...prevSelected, department]
+        : prevSelected.filter((dept) => dept.id !== department.id)
+    );
   }
-  console.log("filteredArray", filterArray);
-  // Handle button click (close only if at least one checkbox is checked & uncheck checkboxes)
+
   function handleButtonClick() {
     if (selectedDepartments.length > 0) {
-      // Save selected departments in GlobalContext
-      setFilterArray(selectedDepartments);
-
-      // Uncheck all checkboxes
-      const checkboxes = document.querySelectorAll(`.${styles.checkbox}`);
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = false;
+      setFilteredArray((prevFiltered) => {
+        const updatedFiltered = [
+          ...prevFiltered.filter(
+            (item) => !uniqueDepartments.some((d) => d.id === item.id)
+          ),
+          ...selectedDepartments,
+        ];
+        return updatedFiltered;
       });
 
-      // Reset state and close dropdown
-      setSelectedDepartments([]);
       setShowDepartmentSelector(false);
       setClickedIndex(false);
-      // Update button opacity
-      if (buttonRef.current) {
-        buttonRef.current.classList.add(styles.buttonOpacity);
-      }
     }
   }
 
   return (
     <div
       ref={containerRef}
-      className={`${showDepartmentSelector ? styles.show : styles.hidden}`}
+      className={showDepartmentSelector ? styles.show : styles.hidden}
     >
       <div className={styles.container}>
         <div className={styles.mainBox}>
@@ -112,7 +88,7 @@ export default function DepartmentFilter() {
         <button
           ref={buttonRef}
           className={styles.buttonOpacity}
-          onClick={handleButtonClick} // ✅ Saves checked values in filterArray
+          onClick={handleButtonClick}
         >
           არჩევა
         </button>

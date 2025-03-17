@@ -6,7 +6,11 @@ export default function DropDown() {
   const { clickedIndex, setClickedIndex } = useContext(GlobalContext);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const { setShowDepartmentSelector } = useContext(GlobalContext);
+  const {
+    setShowDepartmentSelector,
+    showPrioritiesSelector,
+    setShowPrioritiesSelector,
+  } = useContext(GlobalContext);
   const items = ["დეპარტამენტი", "პრიორიტეტი", "თანამშრომელი"];
 
   const handleClick = (text, index) => {
@@ -14,8 +18,11 @@ export default function DropDown() {
     if (text === "დეპარტამენტი") {
       setShowDepartmentSelector((prev) => !prev);
     }
+    if (text === "პრიორიტეტი") {
+      setShowPrioritiesSelector((prev) => !prev);
+    }
   };
-
+  console.log(showPrioritiesSelector);
   return (
     <div className={styles.dropDown}>
       {items.map((text, index) => (

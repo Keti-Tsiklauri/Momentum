@@ -1,3 +1,25 @@
+.container {
+  padding: 40px 0px 20px;
+  gap: 25px;
+
+  position: absolute;
+  width: 688px;
+
+  left: 118px;
+  top: 288px;
+
+  background: #ffffff;
+  /* Purple */
+  border: 0.5px solid #8338ec;
+  border-radius: 10px;
+  z-index: 2;
+}
+.mainBox {
+  flex-grow: 0; /* Makes the content take up space */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 .checkbox {
   appearance: none;
   display: flex;
@@ -32,9 +54,19 @@
   left: 50%;
   transform: translate(-50%, -60%) rotate(-45deg);
 }
-.dep {
-  width: 226px;
-  height: 22px;
+button {
+  align-self: flex-end; /* Moves button to the right */
+  margin-right: 7%;
+}
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: flex !important; /* or block/grid depending on your layout */
+}
+.buttonOpacity {
+  opacity: 0.7;
 }
 .box {
   white-space: nowrap;
@@ -44,35 +76,21 @@
   align-items: center;
   text-align: center;
   padding: 0px;
-  gap: 15px;
-  justify-content: space-between;
-  width: 263px;
-  height: 22px;
 
+  justify-content: space-between;
+  width: 102px;
+  height: 22px;
+  gap: 15px;
   /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 1;
   margin-left: 30px;
 }
-
-.container {
-  padding: 40px 0px 20px;
-  gap: 25px;
-
-  position: absolute;
-  width: 688px;
-
-  left: 118px;
-  top: 288px;
-
-  background: #ffffff;
-  /* Purple */
-  border: 0.5px solid #8338ec;
-  border-radius: 10px;
-  z-index: 2;
+button {
+  align-self: flex-end; /* Moves button to the right */
+  margin-right: 7%;
 }
-
 button {
   /* Frame 1000005937 */
 
@@ -112,42 +130,18 @@ button {
   /* Inside auto layout */
 }
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Pushes the button to the bottom */
   padding: 40px 0px 20px;
   gap: 25px;
-
   position: absolute;
   width: 688px;
 
   left: 118px;
   top: 288px;
-
   background: #ffffff;
   border: 0.5px solid #8338ec;
   border-radius: 10px;
   z-index: 2;
-}
 
-.mainBox {
-  flex-grow: 0; /* Makes the content take up space */
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-button {
-  align-self: flex-end; /* Moves button to the right */
-  margin-right: 7%;
-}
-.hidden {
-  display: none;
-}
-
-.show {
-  display: flex; /* or block/grid depending on your layout */
-}
-.buttonOpacity {
-  opacity: 0.7;
+  flex-direction: column; /* Stack children vertically */
 }
