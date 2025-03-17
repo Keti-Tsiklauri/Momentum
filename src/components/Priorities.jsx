@@ -8,12 +8,11 @@ export default function PriorityFilter() {
     setShowPrioritiesSelector,
     setFilteredArray,
     setClickedIndex,
+    priorities,
   } = useContext(GlobalContext);
 
   const containerRef = useRef(null);
   const [selectedPriorities, setSelectedPriorities] = useState([]);
-
-  const priorityOptions = ["მაღალი", "საშუალო", "დაბალი"];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -22,6 +21,7 @@ export default function PriorityFilter() {
         !containerRef.current.contains(event.target)
       ) {
         setShowPrioritiesSelector(false);
+        setSelectedPriorities([]); // Reset selection when clicking outside
       }
     };
 
@@ -32,25 +32,33 @@ export default function PriorityFilter() {
   function handleCheckboxChange(event, priority) {
     const checked = event.target.checked;
     setSelectedPriorities((prev) =>
-      checked ? [...prev, priority] : prev.filter((p) => p !== priority)
+      checked ? [...prev, priority] : prev.filter((p) => p.id !== priority.id)
     );
   }
 
   function handleButtonClick() {
     if (selectedPriorities.length > 0) {
       setFilteredArray((prevFiltered) => {
-        const updatedFiltered = [
-          ...prevFiltered.filter(
-            (item) => !priorityOptions.includes(item.name)
-          ),
-          ...selectedPriorities.map((priority) => ({ name: priority })),
-        ];
-        return updatedFiltered;
-      });
+        // Remove previously added priorities before updating
+        const withoutOldPriorities = prevFiltered.filter(
+          (item) => !priorities.some((p) => p.name === item.name)
+        );
 
-      setShowPrioritiesSelector(false);
-      setClickedIndex(null);
+        return [
+          ...withoutOldPriorities,
+          ...selectedPriorities.map((priority) => ({
+            id: priority.id,
+            name: priority.name,
+            type: "priority",
+          })),
+        ];
+      });
     }
+
+    // Reset selection & close modal when button is clicked
+    setSelectedPriorities([]);
+    setShowPrioritiesSelector(false);
+    setClickedIndex(null);
   }
 
   return (
@@ -60,17 +68,20 @@ export default function PriorityFilter() {
     >
       <div className={styles.container}>
         <div className={styles.mainBox}>
-          {priorityOptions.map((priority, index) => (
-            <div className={styles.box} key={index}>
+          {priorities.map((priority) => (
+            <div className={styles.box} key={priority.id}>
               <input
                 type="checkbox"
-                id={`priority-${index}`}
+                id={`priority-${priority.id}`}
                 className={styles.checkbox}
-                checked={selectedPriorities.includes(priority)}
+                checked={selectedPriorities.some((p) => p.id === priority.id)}
                 onChange={(e) => handleCheckboxChange(e, priority)}
               />
-              <label htmlFor={`priority-${index}`} className={styles.label}>
-                {priority}
+              <label
+                htmlFor={`priority-${priority.id}`}
+                className={styles.label}
+              >
+                {priority.name}
               </label>
             </div>
           ))}

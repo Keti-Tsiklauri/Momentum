@@ -14,12 +14,10 @@ export default function DepartmentFilter() {
   const containerRef = useRef(null);
   const [selectedDepartments, setSelectedDepartments] = useState([]);
 
-  // Extract unique departments from tasks
-  const departmentOptions = [
-    ...new Map(
-      tasks.map((task) => [task.department.id, task.department.name])
-    ).values(),
-  ];
+  // Extract unique departments with their IDs
+  const departmentOptions = Array.from(
+    new Map(tasks.map((task) => [task.department.id, task.department])).values()
+  );
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,6 +26,7 @@ export default function DepartmentFilter() {
         !containerRef.current.contains(event.target)
       ) {
         setShowDepartmentSelector(false);
+        setSelectedDepartments([]); // Reset selection when clicking outside
       }
     };
 
@@ -38,28 +37,36 @@ export default function DepartmentFilter() {
   function handleCheckboxChange(event, department) {
     const checked = event.target.checked;
     setSelectedDepartments((prev) =>
-      checked ? [...prev, department] : prev.filter((d) => d !== department)
+      checked
+        ? [...prev, department]
+        : prev.filter((d) => d.id !== department.id)
     );
   }
 
   function handleButtonClick() {
     if (selectedDepartments.length > 0) {
       setFilteredArray((prevFiltered) => {
-        const updatedFiltered = [
-          ...prevFiltered.filter(
-            (item) => !departmentOptions.includes(item.name)
-          ), // Remove old department filters
+        // Remove previously added departments before updating
+        const withoutOldDepartments = prevFiltered.filter(
+          (item) => !departmentOptions.some((d) => d.id === item.id)
+        );
+
+        // Add only selected departments with their IDs
+        return [
+          ...withoutOldDepartments,
           ...selectedDepartments.map((department) => ({
-            name: department,
+            id: department.id,
+            name: department.name,
             type: "department",
           })),
         ];
-        return updatedFiltered;
       });
-
-      setShowDepartmentSelector(false);
-      setClickedIndex(null);
     }
+
+    // Reset selection & close modal when button is clicked
+    setSelectedDepartments([]);
+    setShowDepartmentSelector(false);
+    setClickedIndex(null);
   }
 
   return (
@@ -69,17 +76,22 @@ export default function DepartmentFilter() {
     >
       <div className={styles.container}>
         <div className={styles.mainBox}>
-          {departmentOptions.map((department, index) => (
-            <div className={styles.box} key={index}>
+          {departmentOptions.map((department) => (
+            <div className={styles.box} key={department.id}>
               <input
                 type="checkbox"
-                id={`department-${index}`}
+                id={`department-${department.id}`}
                 className={styles.checkbox}
-                checked={selectedDepartments.includes(department)}
+                checked={selectedDepartments.some(
+                  (d) => d.id === department.id
+                )}
                 onChange={(e) => handleCheckboxChange(e, department)}
               />
-              <label htmlFor={`department-${index}`} className={styles.label}>
-                {department}
+              <label
+                htmlFor={`department-${department.id}`}
+                className={styles.label}
+              >
+                {department.name}
               </label>
             </div>
           ))}

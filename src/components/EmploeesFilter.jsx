@@ -17,7 +17,7 @@ export default function EmployeesFilter() {
 
   useEffect(() => {
     if (showEmployeesSelector) {
-      setSelectedEmployees([]);
+      setSelectedEmployees([]); // Reset selection when filter opens
     }
   }, [showEmployeesSelector]);
 
@@ -28,6 +28,7 @@ export default function EmployeesFilter() {
         !containerRef.current.contains(event.target)
       ) {
         setShowEmployeesSelector(false);
+        setSelectedEmployees([]); // Reset selection when clicking outside
       }
     };
 
@@ -36,7 +37,18 @@ export default function EmployeesFilter() {
   }, [setShowEmployeesSelector]);
 
   const uniqueEmployees = [
-    ...new Map(tasks.map((item) => [item.employee.id, item.employee])).values(),
+    ...new Map(
+      tasks.map((item) => [
+        item.employee.id,
+        {
+          id: item.employee.id,
+          name: item.employee.name,
+          surname: item.employee.surname,
+          avatar: item.employee.avatar,
+          department: item.employee.department,
+        },
+      ])
+    ).values(),
   ];
 
   function handleCheckboxChange(event, employee) {
@@ -51,18 +63,27 @@ export default function EmployeesFilter() {
   function handleButtonClick() {
     if (selectedEmployees.length > 0) {
       setFilteredArray((prevFiltered) => {
-        const updatedFiltered = [
-          ...prevFiltered.filter(
-            (item) => !uniqueEmployees.some((e) => e.id === item.id)
-          ),
-          ...selectedEmployees,
-        ];
-        return updatedFiltered;
-      });
+        // Remove previously added employees before updating
+        const withoutOldEmployees = prevFiltered.filter(
+          (item) => !uniqueEmployees.some((e) => e.id === item.id)
+        );
 
-      setShowEmployeesSelector(false);
-      setClickedIndex(null);
+        return [
+          ...withoutOldEmployees,
+          ...selectedEmployees.map((employee) => ({
+            id: employee.id,
+            name: employee.name,
+            surname: employee.surname,
+            type: "employee",
+          })),
+        ];
+      });
     }
+
+    // Reset selection & close modal when button is clicked
+    setSelectedEmployees([]);
+    setShowEmployeesSelector(false);
+    setClickedIndex(null);
   }
 
   return (
@@ -81,6 +102,7 @@ export default function EmployeesFilter() {
                 checked={selectedEmployees.some((emp) => emp.id === elem.id)}
                 onChange={(e) => handleCheckboxChange(e, elem)}
               />
+              <img src={elem.avatar} />
               <label htmlFor={`emp-${index}`} className={styles.emp}>
                 {elem.name} {elem.surname}
               </label>

@@ -1,3 +1,14 @@
+img {
+  /* Ellipse 3892 */
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
 .checkbox {
   appearance: none;
   display: flex;

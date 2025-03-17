@@ -4,12 +4,25 @@ import { GlobalContext } from "../context/globalContext";
 import DropDown from "./DropDown";
 
 export default function FirstPage() {
-  const { tasks, statuses } = useContext(GlobalContext);
-  console.log(tasks);
+  const { tasks, statuses, filteredArray } = useContext(GlobalContext);
+
+  console.log("Tasks:", tasks);
+  console.log("Filtered Array:", filteredArray);
+
+  // Map for department name replacements
+  const departmentNameMap = {
+    "ადმინისტრაციის დეპარტამენტი": "ადმინისტრაცია",
+    "ადამიანური რესურსების დეპარტამენტი": "ად.რესურს.",
+    "ფინანსების დეპარტამენტი": "ფინანსები",
+    "გაყიდვების და მარკეტინგის დეპარტამენტი": "მარკეტინგი",
+    "ლოჯისტიკის დეპარტამენტი": "ლოჯისტიკა",
+    "ტექნოლოგიების დეპარტამენტი": "ინფ.ტექ.",
+    "მედიის დეპარტამენტი": "მედია",
+  };
+
   // Convert due_date format
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-
     const months = [
       "იან",
       "თებ",
@@ -24,13 +37,25 @@ export default function FirstPage() {
       "ნოე",
       "დეკ",
     ];
-
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-
-    return `${day} ${month}, ${year}`;
+    return `${date.getDate()} ${
+      months[date.getMonth()]
+    }, ${date.getFullYear()}`;
   };
+
+  // Extract selected filters
+  const selectedDepartments = filteredArray
+    .filter((item) => item.type === "department")
+    .map((item) => item.name);
+
+  const selectedPriorities = filteredArray
+    .filter((item) => item.type === "priority")
+    .map((item) => item.id); // Use ID for priority comparison
+
+  const selectedEmployees = filteredArray
+    .filter((item) => item.type === "employee")
+    .map((item) => String(item.id)); // Convert IDs to strings
+
+  console.log("Selected Employees:", selectedEmployees);
 
   return (
     <div>
@@ -38,12 +63,31 @@ export default function FirstPage() {
         <p>დავალებების გვერდი</p>
       </div>
       <DropDown />
-      {/* Loop through only the first 4 statuses */}
+
       <div className={styles.container}>
         {statuses.slice(0, 4).map((status) => {
-          const filteredTasks = tasks.filter(
-            (task) => task.status.id === status.id
-          );
+          const filteredTasks = tasks.filter((task) => {
+            const taskEmployeeId = String(task.employee.id); // Ensure consistency in ID comparison
+
+            const matchesDepartment =
+              selectedDepartments.length === 0 ||
+              selectedDepartments.includes(task.employee.department.name);
+
+            const matchesPriority =
+              selectedPriorities.length === 0 ||
+              selectedPriorities.includes(task.priority.id);
+
+            const matchesEmployee =
+              selectedEmployees.length === 0 ||
+              selectedEmployees.includes(taskEmployeeId);
+
+            return (
+              matchesDepartment &&
+              matchesPriority &&
+              matchesEmployee &&
+              task.status.id === status.id
+            );
+          });
 
           return (
             <div key={status.id} className={styles.statusContainer}>
@@ -56,15 +100,26 @@ export default function FirstPage() {
                 filteredTasks.map((elem) => (
                   <div key={elem.id} className={styles[`tasks_${status.id}`]}>
                     <div className={styles.box}>
-                      <div className={styles[`priority_${elem.priority.id}`]}>
-                        <img src={elem.priority.icon} alt="priority icon" />
+                      <div className={styles.box2}>
+                        <div className={styles[`priority_${elem.priority.id}`]}>
+                          <img src={elem.priority.icon} alt="priority icon" />
+                          <p
+                            className={
+                              styles[`priorityType_${elem.priority.id}`]
+                            }
+                          >
+                            {elem.priority.name}
+                          </p>
+                        </div>
                         <p
-                          className={styles[`priorityType_${elem.priority.id}`]}
+                          className={
+                            styles[`department_${elem.employee.department.id}`]
+                          }
                         >
-                          {elem.priority.name}
+                          {departmentNameMap[elem.employee.department.name] ||
+                            elem.employee.department.name}
                         </p>
                       </div>
-                      <p>$$$$$$$$</p>
                       <p>{formatDate(elem.due_date)}</p>
                     </div>
                     <div className={styles.box1}>
@@ -78,16 +133,14 @@ export default function FirstPage() {
                         className={styles.img}
                       />
                       <div className={styles.footer}>
-                        <img src="/public/images/Comments.png" />
+                        <img src="/public/images/Comments.png" alt="comments" />
                         <p>{elem.total_comments}</p>
                       </div>
                     </div>
                   </div>
                 ))
               ) : (
-                <p className={styles.noTasks}>
-                  ამჟამად {status.name}-ის სტატუსის დავალებები არ არის.
-                </p>
+                <p className={styles.noTasks}>დავალებები არ არის.</p>
               )}
             </div>
           );

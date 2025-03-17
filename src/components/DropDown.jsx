@@ -83,7 +83,9 @@ export default function DropDown() {
       <div className={styles.filtered}>
         {filteredArray.map((elem, index) => (
           <div key={index} className={styles.filter}>
-            <p>{elem.name}</p>
+            <p>
+              {elem.name} {elem.surname}
+            </p>
             <img
               src="/images/x.svg"
               alt="remove"

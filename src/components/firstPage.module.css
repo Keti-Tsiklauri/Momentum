@@ -253,7 +253,7 @@
   align-items: center;
   padding: 4px;
   gap: 4px;
-  width: 86px;
+  width: 96px;
   height: 26px;
   background: #ffffff;
   border: 0.5px solid #ffbe0b;
@@ -350,9 +350,19 @@
 }
 .priorityType_2 {
   /* საშუალო */
+  /* Frame 1000006023 */
 
-  width: 56px;
-  height: 18px;
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+  gap: 2px;
+  padding-right: 5px;
+  width: 86px;
+  height: 26px;
 
   font-family: "FiraGO";
   font-style: normal;
@@ -366,5 +376,288 @@
   /* Inside auto layout */
   flex: none;
   order: 1;
+  flex-grow: 0;
+}
+
+.department_1 {
+  /* Frame 1000005921 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 9px;
+  gap: 10px;
+
+  width: 88px;
+  height: 24px;
+
+  background: #70062d;
+  border-radius: 15px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* მარკეტინგი */
+
+  width: 70px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.box2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  margin: 0 auto;
+  width: 200px;
+  height: 26px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.department_2 {
+  /* Frame 1000005921 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 9px;
+  gap: 10px;
+
+  width: 88px;
+  height: 24px;
+
+  background: #6a006f;
+  border-radius: 15px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* მარკეტინგი */
+
+  width: 70px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.department_3 {
+  /* Frame 1000005921 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 9px;
+  gap: 10px;
+
+  width: 88px;
+  height: 24px;
+
+  background: #329242;
+  border-radius: 15px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* მარკეტინგი */
+
+  width: 70px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.department_4 {
+  /* Frame 1000005921 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 9px;
+  gap: 10px;
+
+  width: 88px;
+  height: 24px;
+
+  background: rgba(253, 154, 106, 1);
+  border-radius: 15px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* მარკეტინგი */
+
+  width: 70px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.department_5 {
+  /* Frame 1000005921 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 9px;
+  gap: 10px;
+
+  width: 88px;
+  height: 24px;
+
+  background: rgba(137, 182, 255, 1);
+  border-radius: 15px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* მარკეტინგი */
+
+  width: 70px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.department_6 {
+  /* Frame 1000005921 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 9px;
+  gap: 10px;
+
+  width: 88px;
+  height: 24px;
+
+  background: rgba(255, 216, 109, 1);
+  border-radius: 15px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* მარკეტინგი */
+
+  width: 70px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.department_7 {
+  /* Frame 1000005921 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 9px;
+  gap: 10px;
+
+  width: 88px;
+  height: 24px;
+
+  background: rgb(82, 75, 6);
+  border-radius: 15px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* მარკეტინგი */
+
+  width: 70px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
   flex-grow: 0;
 }
