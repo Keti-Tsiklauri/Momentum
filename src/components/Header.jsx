@@ -10,7 +10,7 @@ export default function Header() {
       <div className={styles.buttons}>
         <Link className={styles.buttonOne}>თანამშრომლის შექმნა</Link>
 
-        <Link to="/createtask" className={styles.buttonTwo}>
+        <Link to="/createtasks" className={styles.buttonTwo}>
           + შექმენი ახალი დავალება
         </Link>
       </div>

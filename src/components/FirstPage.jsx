@@ -96,6 +96,7 @@ export default function FirstPage() {
                   {status.name}
                 </p>
               </div>
+
               {filteredTasks.length > 0 ? (
                 filteredTasks.map((elem) => (
                   <div key={elem.id} className={styles[`tasks_${status.id}`]}>

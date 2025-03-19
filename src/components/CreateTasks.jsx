@@ -2,8 +2,34 @@ import { GlobalContext } from "../context/globalContext";
 import styles from "./createTasks.module.css";
 import { useRef, useState, useEffect, useContext } from "react";
 export default function CreateTasks() {
-  const { priorities, statuses, departments } = useContext(GlobalContext);
+  const { priorities, statuses, departments, employees } =
+    useContext(GlobalContext);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [selectedEmployees, setSelectedEmployees] = useState([]);
+  const [departmentSelector, setDepartmentSelector] = useState(false);
+  const [employeeSelector, setEmployeeSelector] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [showEmployees, setShowEmployees] = useState(false);
+  console.log("selectedEmployee", selectedEmployees);
+  console.log("employee selector", employeeSelector);
+  // Filter employees based on the selected department
+  const filteredEmployees = selectedDepartment
+    ? employees.filter(
+        (employee) => employee.department.id === selectedDepartment.id
+      )
+    : [];
+  const Employee = filteredEmployees.length > 0;
+  console.log("employeee", Employee);
+  const handleDepartmentSelect = (department) => {
+    setSelectedDepartment(department);
+    setSelectedEmployees([]); // Reset selected employees when department changes
+    setDepartmentSelector(false);
+    setShowEmployees(false);
+    setSelectedEmployee(null);
+  };
+
   const titleRef = useRef();
+  console.log("shjbnshjbhjbhj", employees);
   const descriptionRef = useRef();
   const [firstP, setFirstP] = useState(false);
   const [secondP, setSecondP] = useState(false);
@@ -15,13 +41,11 @@ export default function CreateTasks() {
   });
   const [prioritySelector, setPrioritySelector] = useState(false);
   const [statusSelector, setStatusSelector] = useState(false);
-  const [departmentSelector, setDepartmentSelector] = useState(false);
+
   const [selectedStatus, setSelectedStatus] = useState({
     name: "დასაწყები",
   });
-  const [selectedDepartment, setSelectedDepartment] = useState({
-    name: "ადმინისტრაციის დეპარტამენტი",
-  });
+
   function validateTitle() {
     const value = titleRef.current?.value || "";
     const trimmedLength = value.trim().length; // Use trimmed length
@@ -72,14 +96,17 @@ export default function CreateTasks() {
     setPrioritySelector((prev) => !prev);
   }
   function selectStatus(index) {
-    setSelectedStatus({ name: departments[index].name });
+    setSelectedStatus({ name: statuses[index].name });
     setStatusSelector(false);
   }
-  function selectDepartment(index) {
-    setSelectedDepartment({ name: departments[index].name });
-    setDepartmentSelector(false);
-  }
+  const handleEmployeeSelect = (employee) => {
+    setSelectedEmployee(employee);
+
+    setShowEmployees(false);
+  };
   console.log(departments);
+  console.log(filteredEmployees);
+  console.log(selectedEmployee);
   return (
     <div>
       <p className={styles.header}>შექმენი ახალი დავალება</p>
@@ -192,13 +219,12 @@ export default function CreateTasks() {
                   <p>სტატუსი</p>{" "}
                   <img src="images/Asterisk.png" alt="Required" />
                 </div>
-                <div
+                <section
                   onClick={() => setStatusSelector((prev) => !prev)}
                   className={styles.border}
                 >
                   <div className={styles.selectedStatus}>
                     <p>{selectedStatus.name}</p>
-
                     <img
                       src={
                         statusSelector
@@ -219,50 +245,135 @@ export default function CreateTasks() {
                           selectStatus(index);
                         }}
                       >
-                        <p>{elem.name}</p>
+                        {elem.name}
                       </div>
                     ))}
-                </div>
+                </section>
               </div>
             </div>
           </div>
         </div>
         <div className={styles.box2}>
-          <div className={styles.departmentHeader}>
-            <p>დეპარტამენტი</p> <img src="images/Asterisk.png" alt="Required" />
-          </div>
-          <div
-            onClick={() => setDepartmentSelector((prev) => !prev)}
-            className={styles.absolute}
-          >
-            <div className={styles.departmentBorder}>
-              <div className={styles.selectedDepartments}>
-                <p>{selectedDepartment.name}</p>
-
-                <img
-                  src={
-                    statusSelector
-                      ? "images/arrow-down.png"
-                      : "/images/Shape.svg"
-                  }
-                  alt="icon"
-                  className={styles.icon2}
-                />
-              </div>
-              {departmentSelector &&
-                departments.map((elem, index) => (
-                  <div
-                    key={index}
-                    className={styles.departmentsOption}
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevents the event from bubbling up
-                      selectDepartment(index);
-                    }}
-                  >
-                    <p>{elem.name}</p>
+          <div>
+            <div className={styles.departmentHeader}>
+              <p>დეპარტამენტი</p>
+              <img src="images/Asterisk.png" alt="Required" />
+            </div>
+            <div
+              onClick={() => setDepartmentSelector((prev) => !prev)}
+              className={styles.absolute}
+            >
+              <div className={styles.departmentBorder}>
+                <div className={styles.selectedDepartments}>
+                  <p>
+                    {selectedDepartment
+                      ? selectedDepartment.name
+                      : "აირჩიეთ დეპარტამენტი"}
+                  </p>
+                  <img
+                    src={
+                      departmentSelector
+                        ? "images/arrow-down.png"
+                        : "/images/Shape.svg"
+                    }
+                    alt="icon"
+                    className={styles.icon2}
+                  />
+                </div>
+                {departmentSelector && (
+                  <div className={styles.optionsContainer}>
+                    {departments.map((department) => (
+                      <div
+                        key={department.id}
+                        className={styles.departmentsOption}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDepartmentSelect(department);
+                        }}
+                      >
+                        <p>{department.name}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-            </div>{" "}
+                )}
+              </div>
+            </div>
+          </div>
+          <div className={styles.employees}>
+            <div className={styles.employeeHeader}>
+              <p className={`${Employee ? styles.activeP : styles.inactiveP}`}>
+                პასუხისმგებელი თანამშრომელი
+              </p>{" "}
+              <img
+                src={
+                  Employee
+                    ? "images/Asterisk.png"
+                    : "images/AsteriskInactive.png"
+                }
+                alt="Required"
+              />
+            </div>
+            <div
+              className={`${
+                Employee
+                  ? styles.EmployeeFilterActive
+                  : styles.EmployeeFilterInActive
+              }`}
+            >
+              {Employee || (
+                <img
+                  src="images/arrow-downInactive.png"
+                  className={styles.inactive}
+                />
+              )}
+              {Employee && (
+                <div
+                  className={styles.miniBox}
+                  onClick={() => setShowEmployees((prev) => !prev)}
+                >
+                  {selectedEmployee ? (
+                    <div className={styles.con}>
+                      <img src={selectedEmployee.avatar} />
+                      <p>
+                        {selectedEmployee.name} {selectedEmployee.surname}
+                      </p>
+                    </div>
+                  ) : (
+                    <p>დასაწყები</p>
+                  )}
+                  <img
+                    src={
+                      showEmployees
+                        ? "images/arrow-down.png"
+                        : "/images/Shape.svg"
+                    }
+                  ></img>
+                </div>
+              )}
+              <div>
+                {showEmployees && (
+                  <div>
+                    <div className={styles.mini}>
+                      <div className={styles.img}>
+                        <img src="images/+.png" />{" "}
+                      </div>
+                      <p>დაამატე ახალი თანამშრომელი</p>
+                    </div>
+                    {filteredEmployees.map((elem, index) => (
+                      <div
+                        className={styles.elements}
+                        onClick={() => handleEmployeeSelect(elem)}
+                      >
+                        <img src={elem.avatar} />
+                        <p key={index}>
+                          {elem.name} {elem.surname}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

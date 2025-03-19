@@ -661,3 +661,65 @@
   order: 0;
   flex-grow: 0;
 }
+.statusDiv_1 {
+  /* Frame 1000005933 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0px;
+  gap: 10px;
+
+  width: 381px;
+  height: 54px;
+
+  /* Yellow/Yellow 1 */
+  background: #f7bc30;
+  border-radius: 10px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  margin-top: 350px;
+}
+.statusDiv_1 p {
+  /* დასაწყები */
+
+  width: 107px;
+  height: 24px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height */
+  margin: 0;
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.statusDiv_2 {
+  margin-top: 350px;
+}
+.statusDiv_2 p {
+  margin: 0;
+}
+.statusDiv_3 {
+  margin-top: 350px;
+}
+.statusDiv_3 p {
+  margin: 0;
+}
+.statusDiv_4 {
+  margin-top: 350px;
+}
+.statusDiv_4 p {
+  margin: 0;
+}

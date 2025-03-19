@@ -326,7 +326,7 @@
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0px -2px;
+  margin: 0px -7px;
 }
 .priorityHeader img {
   /* Asterisk */
@@ -588,6 +588,26 @@
   flex-grow: 1;
   cursor: pointer;
 }
+.statusOption {
+  /* საშუალო */
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+
+  padding: 14px 0px 14px 14px;
+}
 .selectedStatus p {
   /* საშუალო */
   cursor: pointer;
@@ -648,7 +668,7 @@
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0px -2px;
+  margin: 0px -10px;
 }
 .departmentHeader img {
   /* Asterisk */
@@ -747,4 +767,288 @@
 }
 .absolute {
   position: absolute;
+}
+
+/* employee selector */
+.employees {
+  /* საშუალო */
+
+  margin-top: 200px;
+}
+.employeeHeader {
+  /* Frame 1000005959 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 0px;
+
+  width: 268px;
+  height: 31px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.inactiveP {
+  /* სათაური */
+
+  width: 262px;
+  height: 19px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #adb5bd;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px -22px 0px 0px;
+}
+.employeeHeader img {
+  /* Asterisk */
+
+  width: 8px;
+  height: 8px;
+  padding-left: -22px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.activeP {
+  /* სათაური */
+
+  width: 262px;
+  height: 19px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  /* Grey SHades/Subheadlines */
+  color: #343a40;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px -22px;
+}
+.EmployeeFilterInActive {
+  /* Frame 1000005958 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  gap: 10px;
+
+  width: 550px;
+  height: 45px;
+
+  background: #ffffff;
+  /* Grey SHades/10% */
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.EmployeeFilterActive {
+  width: 550px;
+
+  background: #ffffff;
+  /* Grey SHades/20% */
+  border: 1px solid #adb5bd;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.startDivInactive {
+  /* დასაწყები */
+
+  width: 498px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+.startDivActive {
+  /* დასაწყები */
+
+  width: 498px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+.inactive {
+  /* vuesax/linear/arrow-down */
+  margin-left: auto;
+  width: 14px;
+  height: 14px;
+  cursor: default;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.miniBox {
+  /* Frame 1000005958 */
+  padding: 14px;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 10px;
+
+  justify-content: space-between;
+  height: 45px;
+
+  background: #ffffff;
+  /* Grey SHades/20% */
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.miniBox img {
+  width: 14px;
+  height: 14px;
+  left: 0px;
+  top: 0px;
+}
+.elements {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0px 14px;
+}
+.elements p {
+  cursor: pointer;
+}
+.mini {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 14px;
+}
+.mini img {
+  /* + */
+
+  width: 12px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 14px;
+  /* identical to box height, or 58% */
+
+  /* Purple (Accent Color) */
+  color: #8338ec;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.img {
+  /* Frame 1000006008 */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  width: 18px;
+  height: 18px;
+
+  /* Purple (Accent Color) */
+  border: 1.5px solid #8338ec;
+  border-radius: 30px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.mini p {
+  /* დაამატე თანამშრომელი */
+
+  height: 19px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  cursor: pointer;
+  color: #8338ec;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.con {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.con img {
+  width: 18px;
+  height: 18px;
 }

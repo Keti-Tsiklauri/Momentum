@@ -9,7 +9,24 @@
   left: 120px;
   top: 233px;
   border: 1px solid #dee2e6;
+  border-radius: 10px; /* Frame 1000005908 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 45px;
+
+  position: absolute;
+  width: 688px;
+  height: 44px;
+  left: 120px;
+  top: 233px;
+
+  border: 1px solid #dee2e6;
   border-radius: 10px;
+  padding-left: 34px;
 }
 
 .dropDownItem {
@@ -40,7 +57,19 @@
   font-size: 18px;
 }
 .filtered {
-  margin-top: 180px;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+
+  position: absolute;
+
+  height: 29px;
+  left: 118px;
+  top: 302px;
+
   display: flex;
   gap: 10px;
 }
