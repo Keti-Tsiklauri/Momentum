@@ -15,7 +15,7 @@
   color: #212529;
 }
 
-.label img {
+.img1 {
   /* Asterisk */
 
   width: 8px;
@@ -26,27 +26,31 @@
   order: 1;
   flex-grow: 0;
 }
-.label {
-  /* Frame 1000005959 */
+.img2 {
+  /* Asterisk */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 6px 0px;
-
-  width: 75px;
-  height: 31px;
+  width: 8px;
+  height: 8px;
 
   /* Inside auto layout */
   flex: none;
-  order: 0;
+  order: 1;
+  flex-grow: 0;
+}
+.img3 {
+  /* Asterisk */
+
+  width: 8px;
+  height: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
   flex-grow: 0;
 }
 .title {
   /* Frame 1000005958 */
-
+  resize: none;
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -77,38 +81,19 @@
   align-items: flex-start;
   padding: 14px;
   gap: 10px;
-
+  resize: none;
   width: 550px;
   height: 133px;
 
   background: #ffffff;
   /* Grey SHades/10% */
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
 
   /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
 }
-.descLabel {
-  /* Frame 1000005959 */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 6px 0px;
-
-  width: 60px;
-  height: 31px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
 .firstInput {
   /* Frame 1000006007 */
 
@@ -160,18 +145,14 @@
 
   width: 550px;
   height: 196px;
-
+  resize: none;
   /* Inside auto layout */
   flex: none;
   order: 1;
   flex-grow: 0;
 }
 
-.priority {
-  margin-top: 150px;
-}
 .priorityLabel {
-  /* Frame 1000005991 */
   /* პრიორიტეტი */
 
   width: 105px;
@@ -190,13 +171,18 @@
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0px -px;
+  margin: 0px -2px;
 }
-.box1 {
+.req {
+  margin-left: 10px;
+}
+.setStatusBox {
   /* Frame 1000005958 */
   /* Frame 1000005958 */
   /* Frame 1000005958 */
-
+  max-width: 100%;
+  min-width: 0; /* Allow shrinking */
+  flex: 1; /* Let it adjust dynamically */
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -204,14 +190,14 @@
   padding: 14px;
   gap: 6px;
 
-  width: 259px;
+  width: 231px;
   height: 46px;
 
   /* Auto layout */
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 14px;
+  padding: 12px, 14px;
   gap: 6px;
 }
 
@@ -225,7 +211,7 @@
   align-items: flex-start;
   padding: 0px;
 
-  width: 259px;
+  width: 231px;
 
   background: #ffffff;
   /* Grey SHades/10% */
@@ -246,10 +232,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 12px 14px;
+  padding: 14px 14px;
   gap: 6px;
 
-  width: 259px;
+  width: 351px;
   height: 46px;
 }
 .box {
@@ -288,4 +274,193 @@
   order: 0;
   flex-grow: 0;
   margin: 0px -2px;
+}
+.green {
+  color: rgba(8, 165, 8, 1);
+}
+.black {
+  color: #212529;
+}
+.P {
+  white-space: nowrap;
+}
+.container {
+  border: 2px solid red;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%; /* Or set a fixed width */
+  max-width: 578px; /* Ensure it doesn't exceed a certain size */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.statusWrapper {
+  /* Same as .prio */
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 259px;
+  background: #ffffff;
+}
+
+.statusBox {
+  /* Same as .prio */
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  background: #ffffff;
+  width: 231px;
+}
+
+.statusSelect {
+  /* Same as .prioritySelec */
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px 14px;
+  gap: 6px;
+  width: 250px;
+  height: 46px;
+}
+/* Priority Dropdown */
+.priorityWrapper {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 231px;
+  background: #ffffff;
+}
+
+.priorityBox {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  background: #ffffff;
+}
+
+.prioritySelectBox {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px 14px;
+  gap: 6px;
+  width: 250px;
+  height: 46px;
+}
+
+.priorityOption {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 14px;
+  gap: 6px;
+  width: 231px;
+  height: 46px;
+}
+
+/* Status Dropdown */
+.statusWrapper {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 231px;
+  background: #ffffff;
+}
+
+.statusBox {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  background: #ffffff;
+}
+
+.statusSelectBox {
+  display: flex;
+  cursor: pointer;
+  display: flex;
+
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 14px;
+  gap: 6px;
+  width: 260px;
+  height: 46px;
+}
+
+.statusOption {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 14px;
+  gap: 6px;
+  width: 250px;
+  margin-right: 10px;
+  height: 46px;
+}
+.descLabel {
+  font-weight: 600;
+  padding-bottom: 5px;
+}
+.label {
+  /* Frame 1000005991 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 0px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.priorityWrapper,
+.statusWrapper,
+.priorityBox,
+.statusBox {
+  width: 260px; /* Set a fixed width for both */
+  min-width: 260px; /* Ensure they don't shrink */
+  max-width: 260px; /* Prevent them from growing */
+}
+.prioritySelectBox,
+.statusSelectBox {
+  width: 260px;
+  height: 46px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.priorityOption,
+.statusOption {
+  width: 260px;
+  height: 46px;
+  padding: 12px 14px;
+  gap: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+.box1 {
+  display: flex;
+  align-items: center;
+  padding: 8px 20px;
+  justify-content: space-between;
+  cursor: pointer;
 }

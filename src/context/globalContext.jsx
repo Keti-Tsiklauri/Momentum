@@ -134,7 +134,6 @@ export const GlobalProvider = ({ children }) => {
         const data = await response.json();
 
         setPriorities(data); // Set the fetched task data to state
-        console.log(priorities);
       } catch (err) {
         setError(err.message); // Set the error message if there's an issue
       } finally {
@@ -177,7 +176,7 @@ export const GlobalProvider = ({ children }) => {
 
     fetchDepartments();
   }, []); // Empty dependency array ensures this effect runs once on mount
-  console.log(priorities);
+
   return (
     <GlobalContext.Provider
       value={{

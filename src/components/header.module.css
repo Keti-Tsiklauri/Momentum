@@ -3,26 +3,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.icon p {
-  /* Momentum */
 
-  width: 168px;
-  height: 38px;
-
-  font-family: "Fredoka One";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 31px;
-  line-height: 38px;
-  /* identical to box height */
-
-  color: #8338ec;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
 .icon img {
   /* Hourglass */
 
@@ -166,4 +147,37 @@ link {
 
   cursor: pointer;
   text-decoration: none;
+}
+.icon p {
+  text-decoration: none;
+}
+.icon {
+  text-decoration: none;
+  display: flex; /* Ensures inline elements align properly */
+  align-items: center;
+  gap: 8px; /* Adds space between the text and the image */
+  color: inherit; /* Ensures text uses the default color */
+
+  /* Momentum */
+
+  width: 268px;
+  height: 38px;
+
+  font-family: "Fredoka One";
+  font-style: normal;
+  font-weight: 1000;
+  font-size: 41px;
+  line-height: 38px;
+  /* identical to box height */
+
+  color: #8338ec;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.icon p {
+  margin: 0; /* Removes default margin on <p> */
+  text-decoration: none; /* Ensures no underline */
 }

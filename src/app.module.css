@@ -4,6 +4,9 @@
     transform-origin: top left;
   }
 }
+* {
+  box-sizing: border-box;
+}
 .container {
   width: 1920px;
   height: 1080px;

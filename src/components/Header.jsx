@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <div className={styles.header}>
-      <div className={styles.icon}>
+      <Link className={styles.icon} to="/">
         <p>Momentum</p>
         <img src="public/images/Hourglass.png" height="30px" width="30px" />
-      </div>
+      </Link>
       <div className={styles.buttons}>
         <Link className={styles.buttonOne}>თანამშრომლის შექმნა</Link>
 

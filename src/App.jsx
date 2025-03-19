@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import DepartmentFilter from "./components/DepartmentFilter";
 import Priorities from "./components/Priorities";
 import EmployeesFilter from "./components/EmploeesFilter";
-import CreateTask from "./components/CreateTask";
+import CreateTasks from "./components/CreateTasks";
 function App() {
   return (
     <div className={styles.container}>
@@ -25,7 +25,7 @@ function App() {
             </>
           }
         />
-        <Route path="/createtask" element={<CreateTask />} />
+        <Route path="/createtasks" element={<CreateTasks />} />
       </Routes>
     </div>
   );

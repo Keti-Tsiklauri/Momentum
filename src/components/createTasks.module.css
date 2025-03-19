@@ -1,0 +1,750 @@
+.header {
+  /* შექმენი ახალი დავალება */
+
+  position: absolute;
+  width: 1684px;
+  height: 41px;
+  left: 118px;
+  top: 140px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 41px;
+  /* identical to box height */
+
+  /* Grey SHades/Headlines */
+  color: #212529;
+}
+.container {
+  /* Frame 1000005970 */
+
+  box-sizing: border-box;
+  display: flex;
+
+  position: absolute;
+  width: 1684px;
+  height: 804px;
+
+  margin-top: 211px;
+
+  background: rgba(251, 249, 255, 0.65);
+  border: 0.3px solid #ddd2ff;
+  border-radius: 4px;
+}
+
+.box1 {
+  /* Frame 1000006034 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 55px;
+  position: absolute;
+  width: 550px;
+  height: 487px;
+  left: 55px;
+  top: 65px;
+}
+.box2 {
+  /* Frame 1000006034 */
+  position: relative;
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: absolute;
+  width: 550px;
+  height: 487px;
+  left: 766px;
+  top: 65px;
+}
+.title {
+  /* Frame 1000005959 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 0px;
+
+  width: 75px;
+  height: 31px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.title p {
+  /* სათაური */
+
+  width: 69px;
+  height: 19px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  /* Grey SHades/Subheadlines */
+  color: #343a40;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px -2px;
+}
+.title img {
+  /* Asterisk */
+
+  width: 8px;
+  height: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.titleDiv {
+  /* Frame 1000006007 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 550px;
+  height: 108px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.titleDiv textarea {
+  /* Frame 1000005958 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  gap: 10px;
+
+  width: 550px;
+  height: 45px;
+
+  background: #ffffff;
+  /* Grey SHades/10% */
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  resize: none;
+  overflow: auto;
+}
+
+.firstParagraph {
+  /* მინიმუმ 2 სიმბოლო */
+
+  width: 548px;
+  height: 12px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 350;
+  font-size: 10px;
+  line-height: 12px;
+  /* identical to box height */
+
+  /* Grey SHades/Validations */
+  color: #6c757d;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.secondParagraph {
+  /* მაქსიმუმ 255 სიმბოლო */
+
+  width: 548px;
+  height: 12px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 350;
+  font-size: 10px;
+  line-height: 12px;
+  /* identical to box height */
+
+  /* Grey SHades/Validations */
+  color: #6c757d;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.green {
+  color: rgba(8, 165, 8, 1);
+}
+.grey {
+  color: rgba(108, 117, 125, 1);
+}
+
+.descriptionDiv {
+  /* Frame 1000006007 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 550px;
+  height: 196px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.descriptionHeader {
+  /* Frame 1000005959 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 0px;
+
+  width: 60px;
+  height: 31px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.descriptionDiv textarea {
+  /* Frame 1000005958 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  gap: 10px;
+
+  width: 550px;
+  height: 133px;
+
+  background: #ffffff;
+  /* Grey SHades/10% */
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  resize: none;
+  overflow: auto;
+}
+
+.container2 {
+  /* Frame 1000006033 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+
+  width: 550px;
+  height: 77px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.priorityHeader {
+  /* Frame 1000005991 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 0px;
+
+  width: 111px;
+  height: 31px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.priorityHeader p {
+  /* პრიორიტეტი */
+
+  width: 105px;
+  height: 19px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  /* Grey SHades/Subheadlines */
+  color: #343a40;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px -2px;
+}
+.priorityHeader img {
+  /* Asterisk */
+
+  width: 8px;
+  height: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+/* priority selector */
+.selectedPriority {
+  /* Frame 1000005958 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  gap: 6px;
+
+  width: 259px;
+  height: 46px;
+
+  background: #ffffff;
+  /* Grey SHades/10% */
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.selectedImg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.selectedImg p {
+  /* საშუალო */
+  cursor: pointer;
+  width: 189px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+}
+.selectedImg img {
+  /* Medium */
+
+  width: 16px;
+  height: 18px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.icon {
+  /* vuesax/linear/arrow-down */
+
+  width: 14px;
+  height: 14px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+.priorityOption {
+  /* Frame 1000006009 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 14px;
+  gap: 6px;
+
+  width: 259px;
+  height: 46px;
+
+  background: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.border {
+  background: #ffffff;
+  /* Grey SHades/10% */
+  border: 1px solid rgba(222, 226, 230, 1);
+  border-radius: 5px;
+}
+.priorityOption img {
+  /* Medium */
+
+  width: 16px;
+  height: 18px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.priorityOption p {
+  /* საშუალო */
+
+  width: 189px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.statusHeader {
+  /* Frame 1000005991 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 0px;
+
+  width: 74px;
+  height: 31px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.statusHeader p {
+  /* სტატუსი */
+
+  width: 68px;
+  height: 19px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  /* Grey SHades/Subheadlines */
+  color: #343a40;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px -2px;
+}
+.statusHeader img {
+  /* Asterisk */
+
+  width: 8px;
+  height: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.selectedStatus {
+  /* Frame 1000005958 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  justify-content: space-between;
+
+  width: 259px;
+  height: 45px;
+
+  background: #ffffff;
+  /* Grey SHades/15% */
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.status {
+  /* Frame 1000005958 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  gap: 10px;
+
+  width: 259px;
+  height: 45px;
+
+  background: #ffffff;
+  /* Grey SHades/15% */
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.statusOption p {
+  /* საშუალო */
+
+  width: 207px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  padding: 12px 14px;
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+  margin: 0 0 24px 0;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+  cursor: pointer;
+}
+.selectedStatus p {
+  /* საშუალო */
+  cursor: pointer;
+  width: 207px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+/* departments dropdown */
+.departmentHeader {
+  /* Frame 1000005959 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 0px;
+
+  width: 125px;
+  height: 31px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.departmentHeader p {
+  /* სათაური */
+
+  width: 119px;
+  height: 19px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  /* Grey SHades/Subheadlines */
+  color: #343a40;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px -2px;
+}
+.departmentHeader img {
+  /* Asterisk */
+
+  width: 8px;
+  height: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.selectedDepartments {
+  /* Frame 1000005958 */
+  cursor: pointer;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  gap: 10px;
+  justify-content: space-between;
+  width: 550px;
+  height: 45px;
+
+  background: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.departmentBorder {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.departmentsOption {
+  /* დასაწყები */
+  cursor: pointer;
+  width: 498px;
+  height: 17px;
+  margin: 14px;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #100d0d;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+.selectedDepartments p {
+  /* დასაწყები */
+
+  width: 498px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+.icon2 {
+  /* vuesax/linear/arrow-down */
+
+  width: 14px;
+  height: 14px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.absolute {
+  position: absolute;
+}
