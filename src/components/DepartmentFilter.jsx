@@ -16,7 +16,9 @@ export default function DepartmentFilter() {
 
   // Extract unique departments with their IDs
   const departmentOptions = Array.from(
-    new Map(tasks.map((task) => [task.department.id, task.department])).values()
+    new Map(
+      tasks.map((task) => [task.department?.id, task.department])
+    ).values()
   );
 
   useEffect(() => {

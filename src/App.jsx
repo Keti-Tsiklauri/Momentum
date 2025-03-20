@@ -7,6 +7,7 @@ import DepartmentFilter from "./components/DepartmentFilter";
 import Priorities from "./components/Priorities";
 import EmployeesFilter from "./components/EmploeesFilter";
 import CreateTasks from "./components/CreateTasks";
+import DatePicker from "react-datepicker";
 function App() {
   return (
     <div className={styles.container}>

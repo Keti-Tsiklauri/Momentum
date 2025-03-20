@@ -227,18 +227,15 @@
   flex-grow: 0;
 }
 .descriptionHeader {
-  /* Frame 1000005959 */
-
-  /* Auto layout */
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-start;
   padding: 6px 0px;
-
+  margin: 0;
   width: 60px;
   height: 31px;
-
+  margin-left: -10px;
   /* Inside auto layout */
   flex: none;
   order: 0;
@@ -272,7 +269,7 @@
 
 .container2 {
   /* Frame 1000006033 */
-
+  margin-top: 50px;
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -291,7 +288,7 @@
 }
 .priorityHeader {
   /* Frame 1000005991 */
-
+  margin-left: -8px;
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -633,7 +630,7 @@
 /* departments dropdown */
 .departmentHeader {
   /* Frame 1000005959 */
-
+  margin-left: -10px;
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -773,11 +770,11 @@
 .employees {
   /* საშუალო */
 
-  margin-top: 200px;
+  margin-top: 120px;
 }
 .employeeHeader {
   /* Frame 1000005959 */
-
+  margin-left: -20px;
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -795,7 +792,7 @@
 }
 .inactiveP {
   /* სათაური */
-
+  margin: 0px -22px;
   width: 262px;
   height: 19px;
 
@@ -811,14 +808,13 @@
   flex: none;
   order: 0;
   flex-grow: 0;
-  margin: 0px -22px 0px 0px;
 }
 .employeeHeader img {
   /* Asterisk */
 
   width: 8px;
   height: 8px;
-  padding-left: -22px;
+
   /* Inside auto layout */
   flex: none;
   order: 1;
@@ -1049,6 +1045,120 @@
   gap: 10px;
 }
 .con img {
-  width: 18px;
-  height: 18px;
+  width: 30px;
+  height: 30px;
+}
+.button {
+  /* Frame 169 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 4px;
+
+  width: 208px;
+  height: 42px;
+
+  background: #8338ec;
+  border-radius: 5px;
+  margin-top: 300px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.deadline {
+  /* Frame 1000006023 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 318px;
+  height: 76px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.deadlineHeader {
+  /* Frame 1000005991 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 6px 0px;
+  margin-top: 230px;
+  width: 111px;
+  height: 31px;
+  margin-left: -20px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.deadlineHeader p {
+  /* პრიორიტეტი */
+
+  width: 105px;
+  height: 19px;
+  margin: 0px -20px;
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  /* Grey SHades/Subheadlines */
+  color: #343a40;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.deadlineHeader img {
+  /* Vector */
+
+  /* Asterisk */
+
+  width: 8px;
+  height: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.date {
+  /* Text field */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px;
+  gap: 6px;
+  isolation: isolate;
+
+  width: 318px;
+  height: 45px;
+
+  background: #ffffff;
+  /* Grey SHades/10% */
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
 }

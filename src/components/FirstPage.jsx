@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import styles from "./firstPage.module.css";
 import { GlobalContext } from "../context/globalContext";
 import DropDown from "./DropDown";
@@ -20,13 +20,16 @@ export default function FirstPage() {
     "მედიის დეპარტამენტი": "მედია",
   };
 
+  useEffect(() => {
+    console.log("Tasks updated:", tasks);
+  }, [tasks]); // ✅ Re-run when tasks change
   // Convert due_date format
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const months = [
       "იან",
       "თებ",
-      "მარტ",
+      "მარ",
       "აპრ",
       "მაი",
       "ივნ",

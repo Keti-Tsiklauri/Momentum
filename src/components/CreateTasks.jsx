@@ -1,25 +1,43 @@
 import { GlobalContext } from "../context/globalContext";
 import styles from "./createTasks.module.css";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useRef, useState, useEffect, useContext } from "react";
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+
+const formatDate = (date) => date.toISOString().split("T")[0];
 export default function CreateTasks() {
-  const { priorities, statuses, departments, employees } =
+  const { priorities, statuses, departments, employees, tasks, setTasks } =
     useContext(GlobalContext);
+  const [selectedDate, setSelectedDate] = useState(formatDate(tomorrow));
+
+  useEffect(() => {
+    const getTomorrow = () => {
+      const date = new Date();
+      date.setDate(date.getDate() + 1);
+      return date.toISOString().split("T")[0]; // Format YYYY-MM-DD
+    };
+
+    setSelectedDate(getTomorrow()); // Set default to tomorrow
+  }, []);
+
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const [departmentSelector, setDepartmentSelector] = useState(false);
-  const [employeeSelector, setEmployeeSelector] = useState(false);
+  // const [employeeSelector, setEmployeeSelector] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [showEmployees, setShowEmployees] = useState(false);
-  console.log("selectedEmployee", selectedEmployees);
-  console.log("employee selector", employeeSelector);
-  // Filter employees based on the selected department
+
   const filteredEmployees = selectedDepartment
     ? employees.filter(
         (employee) => employee.department.id === selectedDepartment.id
       )
     : [];
   const Employee = filteredEmployees.length > 0;
-  console.log("employeee", Employee);
+
   const handleDepartmentSelect = (department) => {
     setSelectedDepartment(department);
     setSelectedEmployees([]); // Reset selected employees when department changes
@@ -29,22 +47,17 @@ export default function CreateTasks() {
   };
 
   const titleRef = useRef();
-  console.log("shjbnshjbhjbhj", employees);
+
   const descriptionRef = useRef();
   const [firstP, setFirstP] = useState(false);
   const [secondP, setSecondP] = useState(false);
   const [thirdP, setThirdP] = useState(false);
   const [fourthP, setFourthP] = useState(false);
-  const [selectedPriority, setSelectedPriority] = useState({
-    icon: "https://momentum.redberryinternship.ge/storage/priority-icons/Medium.svg",
-    name: "საშუალო",
-  });
+  const [selectedPriority, setSelectedPriority] = useState(null);
   const [prioritySelector, setPrioritySelector] = useState(false);
   const [statusSelector, setStatusSelector] = useState(false);
 
-  const [selectedStatus, setSelectedStatus] = useState({
-    name: "დასაწყები",
-  });
+  const [selectedStatus, setSelectedStatus] = useState(null);
 
   function validateTitle() {
     const value = titleRef.current?.value || "";
@@ -69,7 +82,10 @@ export default function CreateTasks() {
 
   function validateDescription() {
     const value = descriptionRef.current?.value || "";
-    const trimmedLength = value.trim().length; // Use trimmed length
+    const trimmedDescription = value.trim();
+    const words = trimmedDescription.split(/\s+/).filter(Boolean); // Split into words and remove empty spaces
+    const wordCount = words.length;
+    const trimmedLength = trimmedDescription.length;
 
     if (trimmedLength === 0) {
       setThirdP(false);
@@ -77,11 +93,11 @@ export default function CreateTasks() {
       return;
     }
 
-    setThirdP(trimmedLength >= 2); // Set firstP true if length is 2+
-    setFourthP(trimmedLength >= 2 && trimmedLength < 255); // Set secondP true if length is 2-9
+    setThirdP(wordCount >= 4);
+    setFourthP(trimmedLength < 255);
 
-    if (trimmedLength > 255) {
-      setFourthP(false); // Disable secondP if length exceeds 10
+    if (trimmedLength > 255 || wordCount < 4) {
+      setFourthP(false);
     }
   }
 
@@ -90,13 +106,14 @@ export default function CreateTasks() {
   }, [descriptionRef.current?.value]);
   function selectPriority(index) {
     setSelectedPriority({
+      id: priorities[index].id,
       icon: priorities[index].icon,
       name: priorities[index].name,
     });
     setPrioritySelector((prev) => !prev);
   }
   function selectStatus(index) {
-    setSelectedStatus({ name: statuses[index].name });
+    setSelectedStatus({ id: statuses[index].id, name: statuses[index].name });
     setStatusSelector(false);
   }
   const handleEmployeeSelect = (employee) => {
@@ -104,9 +121,86 @@ export default function CreateTasks() {
 
     setShowEmployees(false);
   };
-  console.log(departments);
-  console.log(filteredEmployees);
-  console.log(selectedEmployee);
+  console.log(
+    tasks,
+    selectedPriority,
+    selectedStatus,
+    selectedDepartment,
+    selectedEmployee,
+    selectedDate
+  );
+
+  const handleChange = (e) => {
+    const newDate = e.target.value;
+    if (newDate >= formatDate(tomorrow)) {
+      setSelectedDate(newDate);
+    }
+  };
+  const handleBlur = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const minDate = tomorrow.toISOString().split("T")[0];
+
+    if (selectedDate < minDate) {
+      setSelectedDate(minDate); // Correct only on blur
+    }
+  };
+
+  function handleSubmit(
+    title,
+    description,
+    priority,
+    status,
+    department,
+    employee,
+    deadline,
+    tasks, // Array of existing tasks
+    setTasks // State updater function
+  ) {
+    // Trim title and description
+    const trimmedTitle = title.trim();
+    const trimmedDescription = description.trim();
+
+    // Title validation: must be between 3 and 255 characters
+    if (trimmedTitle.length < 3 || trimmedTitle.length > 255) {
+      return;
+    }
+
+    // Description validation (if provided)
+    if (trimmedDescription.length > 0) {
+      const wordCount = trimmedDescription.split(/\s+/).filter(Boolean).length;
+      if (wordCount < 4 || trimmedDescription.length > 255) {
+        return;
+      }
+    }
+
+    // Validate that all required fields are provided
+    if (!priority || !status || !department || !employee || !deadline) {
+      return;
+    }
+
+    // Generate a unique ID (assuming last task has the highest ID)
+
+    // Create the new task object matching the existing structure
+    const newTask = {
+      id: tasks.length + 1,
+      name: trimmedTitle,
+      description: trimmedDescription || "No description provided",
+      priority: { ...priority }, // Ensure it's an object
+      status: { ...status },
+      department: { ...department },
+      employee: { ...employee },
+      due_date: new Date(deadline).toISOString(), // Ensure correct format
+      total_comments: 0, // Default value
+    };
+
+    // Update the tasks array
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+
+    console.log("Task added successfully:", newTask);
+  }
+
+  console.log(selectedStatus, "sghsvbtyyyyyyyyyyyyy");
   return (
     <div>
       <p className={styles.header}>შექმენი ახალი დავალება</p>
@@ -156,7 +250,7 @@ export default function CreateTasks() {
                   styles.firstParagraph
                 }`}
               >
-                მინიმუმ 2 სიმბოლო
+                მინიმუმ 4 სიტყვა
               </p>
               <p
                 className={`${styles[fourthP ? "green" : "grey"]} ${
@@ -180,11 +274,14 @@ export default function CreateTasks() {
                 <div className={styles.selectedPriority}>
                   <div className={styles.selectedImg}>
                     <img
-                      src={selectedPriority.icon}
+                      src={
+                        selectedPriority?.icon ||
+                        "https://momentum.redberryinternship.ge/storage/priority-icons/Medium.svg"
+                      }
                       alt="icon"
                       className={styles.priorityIcon}
                     />
-                    <p>{selectedPriority.name}</p>
+                    <p>{selectedPriority?.name || "საშუალო"}</p>
                   </div>
                   <img
                     src={
@@ -224,7 +321,7 @@ export default function CreateTasks() {
                   className={styles.border}
                 >
                   <div className={styles.selectedStatus}>
-                    <p>{selectedStatus.name}</p>
+                    <p>{selectedStatus?.name || "დასაწყები"}</p>
                     <img
                       src={
                         statusSelector
@@ -375,6 +472,40 @@ export default function CreateTasks() {
               </div>
             </div>
           </div>
+          <div className={styles.deadline}>
+            <div className={styles.deadlineHeader}>
+              <p>დედლაინი</p>
+              <img src="images/Asterisk.png" alt="Required" />
+            </div>
+            <div className={styles.dateContainer}>
+              <input
+                type="date"
+                className={styles.date}
+                min={selectedDate}
+                value={selectedDate}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </div>
+          </div>
+          <button
+            className={styles.button}
+            onClick={() =>
+              handleSubmit(
+                titleRef.current.value,
+                descriptionRef.current.value,
+                selectedPriority,
+                selectedStatus,
+                selectedDepartment,
+                selectedEmployee,
+                selectedDate,
+                tasks,
+                setTasks
+              )
+            }
+          >
+            დავალების შექმნა
+          </button>
         </div>
       </div>
     </div>

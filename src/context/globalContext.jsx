@@ -182,6 +182,7 @@ export const GlobalProvider = ({ children }) => {
       value={{
         employees,
         tasks,
+        setTasks,
         loading,
         error,
         statuses,
