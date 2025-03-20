@@ -2,9 +2,10 @@ import { useContext, useEffect } from "react";
 import styles from "./firstPage.module.css";
 import { GlobalContext } from "../context/globalContext";
 import DropDown from "./DropDown";
-
-export default function FirstPage() {
-  const { tasks, statuses, filteredArray } = useContext(GlobalContext);
+import React from "react";
+const FirstPage = () => {
+  const { tasks, statuses, filteredArray, openTask, setOpenTask } =
+    useContext(GlobalContext);
 
   // Map for department name replacements
   const departmentNameMap = {
@@ -21,6 +22,7 @@ export default function FirstPage() {
     console.log("Tasks updated:", tasks);
   }, [tasks]); // ✅ Re-run when tasks change
   // Convert due_date format
+  console.log("archeuli taski", openTask);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const months = [
@@ -41,7 +43,11 @@ export default function FirstPage() {
       months[date.getMonth()]
     }, ${date.getFullYear()}`;
   };
-
+  const handleTaskClick = (task) => {
+    console.log("Clicked Task:", task); // Check what task contains
+    console.log("Task ID:", task.id); // Ensure id is valid
+    setOpenTask(task.id);
+  };
   // Extract selected filters
   const selectedDepartments = filteredArray
     .filter((item) => item.type === "department")
@@ -86,7 +92,7 @@ export default function FirstPage() {
               task.status.id === status.id
             );
           });
-
+          console.log(filteredTasks);
           return (
             <div key={status.id} className={styles.statusContainer}>
               <div className={styles[`statusDiv_${status.id}`]}>
@@ -97,7 +103,12 @@ export default function FirstPage() {
 
               {filteredTasks.length > 0 ? (
                 filteredTasks.map((elem) => (
-                  <div key={elem.id} className={styles[`tasks_${status.id}`]}>
+                  <div
+                    key={elem.id}
+                    className={styles[`tasks_${status.id}`]}
+                    onClick={() => handleTaskClick(elem)}
+                  >
+                    <p>{elem.id}</p>
                     <div className={styles.box}>
                       <div className={styles.box2}>
                         <div className={styles[`priority_${elem.priority.id}`]}>
@@ -123,7 +134,13 @@ export default function FirstPage() {
                     </div>
                     <div className={styles.box1}>
                       <p className={styles.name}>{elem.name}</p>
-                      <p className={styles.description}>{elem.description}</p>
+                      <p className={styles.description}>
+                        {typeof elem.description === "string"
+                          ? elem.description.length > 100
+                            ? `${elem.description.slice(0, 100)}...`
+                            : elem.description
+                          : "No description available"}
+                      </p>
                     </div>
                     <div className={styles.tasksFooter}>
                       <img
@@ -147,4 +164,5 @@ export default function FirstPage() {
       </div>
     </div>
   );
-}
+};
+export default React.memo(FirstPage);

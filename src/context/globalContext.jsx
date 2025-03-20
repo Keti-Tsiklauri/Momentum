@@ -18,6 +18,7 @@ export const GlobalProvider = ({ children }) => {
   const [showEmployeesSelector, setShowEmployeesSelector] = useState(false);
   const [filteredArray, setFilteredArray] = useState([]);
   const [clickedIndex, setClickedIndex] = useState(null);
+  const [openTask, setOpenTask] = useState(null);
   // Fetch employees data when the component mounts
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -202,6 +203,8 @@ export const GlobalProvider = ({ children }) => {
         createNewEmployee,
         setCreateNewEmployee,
         setEmployees,
+        openTask,
+        setOpenTask,
       }}
     >
       {children}

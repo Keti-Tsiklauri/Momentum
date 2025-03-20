@@ -152,27 +152,16 @@ export default function CreateTasks() {
     }
   };
 
-  function handleSubmit(
-    title,
-    description,
-    priority,
-    status,
-    department,
-    employee,
-    deadline,
-    tasks,
-    setTasks
-  ) {
-    // Trim title and description
-    const trimmedTitle = title.trim();
-    const trimmedDescription = description.trim();
+  const handleSubmit = () => {
+    const trimmedTitle = titleRef.current?.value.trim() || "";
+    const trimmedDescription = descriptionRef.current?.value.trim() || "";
 
-    // Title validation: must be between 3 and 255 characters
+    // Title validation
     if (trimmedTitle.length < 3 || trimmedTitle.length > 255) {
       return;
     }
 
-    // Description validation (if provided)
+    // Description validation
     if (trimmedDescription.length > 0) {
       const wordCount = trimmedDescription.split(/\s+/).filter(Boolean).length;
       if (wordCount < 4 || trimmedDescription.length > 255) {
@@ -180,36 +169,49 @@ export default function CreateTasks() {
       }
     }
 
-    // Validate that all required fields are provided
-    if (!priority || !status || !department || !employee || !deadline) {
+    // Required fields validation
+    if (
+      !selectedPriority ||
+      !selectedStatus ||
+      !selectedDepartment ||
+      !selectedEmployee ||
+      !selectedDate
+    ) {
       return;
     }
 
-    // Generate a unique ID (assuming last task has the highest ID)
+    // Get tomorrow's date for comparison
+    const getTomorrow = () => {
+      const date = new Date();
+      date.setDate(date.getDate() + 1);
+      return date.toISOString().split("T")[0]; // Format YYYY-MM-DD
+    };
 
-    // Create the new task object matching the existing structure
+    // Prevent submission if deadline is unchanged
+    if (selectedDate === getTomorrow()) {
+      console.log("Deadline must be changed before submitting.");
+      return;
+    }
+
+    // Create the new task
     const newTask = {
       id: tasks.length + 1,
       name: trimmedTitle,
       description: trimmedDescription || "No description provided",
-      priority: { ...priority }, // Ensure it's an object
-      status: { ...status },
-      department: { ...department },
-      employee: { ...employee },
-      due_date: new Date(deadline).toISOString(), // Ensure correct format
-      total_comments: 0, // Default value
+      priority: { ...selectedPriority },
+      status: { ...selectedStatus },
+      department: { ...selectedDepartment },
+      employee: { ...selectedEmployee },
+      due_date: new Date(selectedDate).toISOString(),
+      total_comments: 0,
     };
 
-    // Update the tasks array
-    setTasks((prevTasks) => {
-      const updatedTasks = [...prevTasks, newTask];
-      setTaskAdded(true); // Ensure navigation happens after state update
-      return updatedTasks;
-    });
+    // Update tasks
+    setTasks((prevTasks) => [...prevTasks, newTask]);
 
-    // Delay navigation slightly to allow state update to take effect
+    setTaskAdded(true);
     console.log("Task added successfully:", newTask);
-  }
+  };
 
   return (
     <div>

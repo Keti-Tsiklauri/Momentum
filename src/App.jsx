@@ -9,9 +9,10 @@ import CreateTasks from "./components/CreateTasks";
 import { useContext } from "react";
 import { GlobalContext } from "./context/globalContext";
 import CreateEmployee from "./components/CreateEmployee";
+import TaskPage from "./components/TaskPage";
 
 function App() {
-  const { createNewEmployee } = useContext(GlobalContext);
+  const { createNewEmployee, openTask } = useContext(GlobalContext);
 
   return (
     <Routes>
@@ -24,10 +25,16 @@ function App() {
             <div className={createNewEmployee ? styles.blur : ""}>
               <Header />
 
-              <DepartmentFilter />
-              <Priorities />
-              <EmployeesFilter />
-              <FirstPage />
+              {typeof openTask === "number" ? (
+                <TaskPage openTask={openTask} />
+              ) : (
+                <>
+                  <DepartmentFilter />
+                  <Priorities />
+                  <EmployeesFilter />
+                  <FirstPage />
+                </>
+              )}
             </div>
           </div>
         }

@@ -44,14 +44,23 @@ export default function CreateEmployee() {
 
   function validateName() {
     const value = NameRef.current?.value.trim() || "";
-    setFirstP(value.length >= 2);
-    setSecondP(value.length > 0 && value.length <= 255);
+
+    // Regular expression to match only Georgian (ა-ჰ) and English (A-Za-z) alphabets
+    const nameRegex = /^[A-Za-zა-ჰ]+$/;
+
+    setFirstP(value.length >= 2 && nameRegex.test(value)); // At least 2 characters and valid letters
+    setSecondP(
+      value.length > 0 && value.length <= 255 && nameRegex.test(value)
+    );
   }
 
   function validateSurname() {
     const value = SurnameRef.current?.value.trim() || "";
-    setThirdP(value.length >= 2);
-    setFourthP(value.length > 0 && value.length <= 255);
+    const nameRegex = /^[A-Za-zა-ჰ]+$/;
+    setThirdP(value.length >= 2 && nameRegex.test(value));
+    setFourthP(
+      value.length > 0 && value.length <= 255 && nameRegex.test(value)
+    );
   }
 
   function handleImageUpload(event) {
