@@ -54,7 +54,7 @@ export default function DropDown() {
   }, [setClickedIndex]);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className={styles.container}>
       <div className={styles.dropDown}>
         {items.map((text, index) => (
           <div

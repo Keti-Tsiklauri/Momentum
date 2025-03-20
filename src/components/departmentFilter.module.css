@@ -73,44 +73,6 @@
   z-index: 2;
 }
 
-button {
-  /* Frame 1000005937 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 20px;
-  gap: 10px;
-
-  width: 155px;
-  height: 35px;
-
-  background: #8338ec;
-  border-radius: 20px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-
-  /* Button */
-
-  margin-left: auto;
-  margin-right: 7%;
-
-  margin-top: auto;
-  font-family: "FiraGO";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-
-  color: #ffffff;
-  cursor: pointer;
-  /* Inside auto layout */
-}
 .container {
   display: flex;
   flex-direction: column;
@@ -137,10 +99,6 @@ button {
   gap: 15px;
 }
 
-button {
-  align-self: flex-end; /* Moves button to the right */
-  margin-right: 7%;
-}
 .hidden {
   display: none;
 }
@@ -149,5 +107,64 @@ button {
   display: flex; /* or block/grid depending on your layout */
 }
 .buttonOpacity {
-  opacity: 0.7;
+  opacity: 0.7; /* Frame 1000005937 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  gap: 10px;
+
+  width: 155px;
+  height: 35px;
+
+  background: #8338ec;
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin-left: auto;
+  margin-right: 14px;
+}
+.activeButton {
+  /* Frame 1000005937 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  gap: 10px;
+
+  width: 155px;
+  height: 35px;
+
+  background: #8338ec;
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin-left: auto;
+  margin-right: 14px;
+  cursor: pointer;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }

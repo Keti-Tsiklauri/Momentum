@@ -764,13 +764,15 @@
 }
 .absolute {
   position: absolute;
+  z-index: 10;
 }
 
 /* employee selector */
 .employees {
   /* საშუალო */
-
-  margin-top: 120px;
+  position: absolute;
+  margin-top: 160px;
+  z-index: 7;
 }
 .employeeHeader {
   /* Frame 1000005959 */
@@ -1069,10 +1071,20 @@
   flex: none;
   order: 0;
   flex-grow: 0;
+  /* დავალების შექმნა */
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+  margin-left: auto;
+  color: #ffffff;
 }
 .deadline {
   /* Frame 1000006023 */
-
+  margin-top: 200px;
   /* Auto layout */
   display: flex;
   flex-direction: column;
@@ -1140,7 +1152,8 @@
 }
 .date {
   /* Text field */
-
+  position: relative;
+  z-index: 1;
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -1161,4 +1174,14 @@
   flex: none;
   order: 1;
   flex-grow: 0;
+}
+.avatarImg {
+  /* Ellipse 3892 */
+
+  width: 30px;
+  height: 30px; /* Ellipse 3892 */
+  border-radius: 50%;
+}
+.plus {
+  cursor: pointer;
 }

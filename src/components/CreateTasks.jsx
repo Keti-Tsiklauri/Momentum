@@ -4,16 +4,24 @@ import styles from "./createTasks.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRef, useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 const today = new Date();
 const tomorrow = new Date(today);
 tomorrow.setDate(today.getDate() + 1);
-
 const formatDate = (date) => date.toISOString().split("T")[0];
 export default function CreateTasks() {
-  const { priorities, statuses, departments, employees, tasks, setTasks } =
-    useContext(GlobalContext);
+  const [taskAdded, setTaskAdded] = useState(false);
+  const navigate = useNavigate();
+  const {
+    priorities,
+    statuses,
+    departments,
+    employees,
+    tasks,
+    setTasks,
+    setCreateNewEmployee,
+  } = useContext(GlobalContext);
   const [selectedDate, setSelectedDate] = useState(formatDate(tomorrow));
-
   useEffect(() => {
     const getTomorrow = () => {
       const date = new Date();
@@ -58,6 +66,12 @@ export default function CreateTasks() {
   const [statusSelector, setStatusSelector] = useState(false);
 
   const [selectedStatus, setSelectedStatus] = useState(null);
+  useEffect(() => {
+    if (taskAdded) {
+      navigate("/");
+      setTaskAdded(false); // Reset after navigation
+    }
+  }, [taskAdded, navigate]);
 
   function validateTitle() {
     const value = titleRef.current?.value || "";
@@ -121,14 +135,6 @@ export default function CreateTasks() {
 
     setShowEmployees(false);
   };
-  console.log(
-    tasks,
-    selectedPriority,
-    selectedStatus,
-    selectedDepartment,
-    selectedEmployee,
-    selectedDate
-  );
 
   const handleChange = (e) => {
     const newDate = e.target.value;
@@ -154,8 +160,8 @@ export default function CreateTasks() {
     department,
     employee,
     deadline,
-    tasks, // Array of existing tasks
-    setTasks // State updater function
+    tasks,
+    setTasks
   ) {
     // Trim title and description
     const trimmedTitle = title.trim();
@@ -195,12 +201,16 @@ export default function CreateTasks() {
     };
 
     // Update the tasks array
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+    setTasks((prevTasks) => {
+      const updatedTasks = [...prevTasks, newTask];
+      setTaskAdded(true); // Ensure navigation happens after state update
+      return updatedTasks;
+    });
 
+    // Delay navigation slightly to allow state update to take effect
     console.log("Task added successfully:", newTask);
   }
 
-  console.log(selectedStatus, "sghsvbtyyyyyyyyyyyyy");
   return (
     <div>
       <p className={styles.header}>შექმენი ახალი დავალება</p>
@@ -430,7 +440,10 @@ export default function CreateTasks() {
                 >
                   {selectedEmployee ? (
                     <div className={styles.con}>
-                      <img src={selectedEmployee.avatar} />
+                      <img
+                        src={selectedEmployee.avatar}
+                        className={styles.avatarImg}
+                      />
                       <p>
                         {selectedEmployee.name} {selectedEmployee.surname}
                       </p>
@@ -450,9 +463,12 @@ export default function CreateTasks() {
               <div>
                 {showEmployees && (
                   <div>
-                    <div className={styles.mini}>
+                    <div
+                      className={styles.mini}
+                      onClick={() => setCreateNewEmployee(true)}
+                    >
                       <div className={styles.img}>
-                        <img src="images/+.png" />{" "}
+                        <img src="images/+.png" className={styles.plus} />{" "}
                       </div>
                       <p>დაამატე ახალი თანამშრომელი</p>
                     </div>
@@ -461,7 +477,7 @@ export default function CreateTasks() {
                         className={styles.elements}
                         onClick={() => handleEmployeeSelect(elem)}
                       >
-                        <img src={elem.avatar} />
+                        <img src={elem.avatar} className={styles.avatarImg} />
                         <p key={index}>
                           {elem.name} {elem.surname}
                         </p>

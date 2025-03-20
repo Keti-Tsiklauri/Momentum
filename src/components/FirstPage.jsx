@@ -6,9 +6,6 @@ import DropDown from "./DropDown";
 export default function FirstPage() {
   const { tasks, statuses, filteredArray } = useContext(GlobalContext);
 
-  console.log("Tasks:", tasks);
-  console.log("Filtered Array:", filteredArray);
-
   // Map for department name replacements
   const departmentNameMap = {
     "ადმინისტრაციის დეპარტამენტი": "ადმინისტრაცია",
@@ -57,8 +54,6 @@ export default function FirstPage() {
   const selectedEmployees = filteredArray
     .filter((item) => item.type === "employee")
     .map((item) => String(item.id)); // Convert IDs to strings
-
-  console.log("Selected Employees:", selectedEmployees);
 
   return (
     <div>

@@ -102,7 +102,7 @@ export default function EmployeesFilter() {
                 checked={selectedEmployees.some((emp) => emp.id === elem.id)}
                 onChange={(e) => handleCheckboxChange(e, elem)}
               />
-              <img src={elem.avatar} />
+              <img className={styles.image} src={elem.avatar} />
               <label htmlFor={`emp-${index}`} className={styles.emp}>
                 {elem.name} {elem.surname}
               </label>

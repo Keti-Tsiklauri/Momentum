@@ -5,6 +5,7 @@ export const GlobalContext = createContext();
 
 // Create a provider component
 export const GlobalProvider = ({ children }) => {
+  const [createNewEmployee, setCreateNewEmployee] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -111,7 +112,7 @@ export const GlobalProvider = ({ children }) => {
 
     fetchStatuses();
   }, []); // Empty dependency array ensures this effect runs once on mount
-
+  console.log("aaaaa", employees);
   //fetch priorities
   useEffect(() => {
     const fetchPriorities = async () => {
@@ -198,6 +199,9 @@ export const GlobalProvider = ({ children }) => {
         setShowPrioritiesSelector,
         showEmployeesSelector,
         setShowEmployeesSelector,
+        createNewEmployee,
+        setCreateNewEmployee,
+        setEmployees,
       }}
     >
       {children}

@@ -54,10 +54,7 @@
   left: 50%;
   transform: translate(-50%, -60%) rotate(-45deg);
 }
-button {
-  align-self: flex-end; /* Moves button to the right */
-  margin-right: 7%;
-}
+
 .hidden {
   display: none !important;
 }
@@ -87,11 +84,48 @@ button {
   flex-grow: 1;
   margin-left: 30px;
 }
-button {
-  align-self: flex-end; /* Moves button to the right */
-  margin-right: 7%;
+
+.container {
+  padding: 40px 0px 20px;
+  gap: 25px;
+  position: absolute;
+  width: 688px;
+
+  left: 118px;
+  top: 288px;
+  background: #ffffff;
+  border: 0.5px solid #8338ec;
+  border-radius: 10px;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
 }
-button {
+.buttonOpacity {
+  opacity: 0.7; /* Frame 1000005937 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  gap: 10px;
+
+  width: 155px;
+  height: 35px;
+
+  background: #8338ec;
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin-left: auto;
+  margin-right: 14px;
+}
+.activeButton {
   /* Frame 1000005937 */
 
   /* Auto layout */
@@ -112,13 +146,10 @@ button {
   flex: none;
   order: 0;
   flex-grow: 0;
-
-  /* Button */
-
   margin-left: auto;
-  margin-right: 7%;
+  margin-right: 14px;
+  cursor: pointer;
 
-  margin-top: auto;
   font-family: "FiraGO";
   font-style: normal;
   font-weight: 400;
@@ -126,22 +157,9 @@ button {
   line-height: 19px;
 
   color: #ffffff;
-  cursor: pointer;
+
   /* Inside auto layout */
-}
-.container {
-  padding: 40px 0px 20px;
-  gap: 25px;
-  position: absolute;
-  width: 688px;
-
-  left: 118px;
-  top: 288px;
-  background: #ffffff;
-  border: 0.5px solid #8338ec;
-  border-radius: 10px;
-  z-index: 2;
-
-  display: flex;
-  flex-direction: column; /* Stack children vertically */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
