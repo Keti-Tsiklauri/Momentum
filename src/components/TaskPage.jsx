@@ -181,7 +181,6 @@ export default function TaskPage({ openTask }) {
 
       {/* Comment Section */}
       <div className={styles.commentBox}>
-        <p>კომენტარი</p>
         <div className={styles.addCom}>
           <textarea
             ref={inputRef}
@@ -197,12 +196,15 @@ export default function TaskPage({ openTask }) {
           <p>კომენტარები</p>
           <p>{taskComments?.length}</p>
         </div>
-
         <div className={styles.commentsBox}>
-          {taskComments.map((elem) => (
-            <div key={elem.id}>
+          {taskComments.map((elem, index) => (
+            <div key={index}>
               <div className={styles.parent}>
-                <img src={elem.author_avatar} className={styles.avatar} />
+                <img
+                  src={elem.author_avatar}
+                  className={styles.avatar}
+                  alt="User Avatar"
+                />
                 <div className={styles.box0}>
                   <p>{elem.author_nickname}</p>
                   <p>{elem.text}</p>
@@ -210,11 +212,25 @@ export default function TaskPage({ openTask }) {
                     <img
                       src="images/Frame 1000005939.png"
                       className={styles.reply}
+                      alt="Reply"
                       onClick={() => focusInput(elem.id)}
                     />
                   )}
                 </div>
               </div>
+
+              {elem.sub_comments.length > 0 && (
+                <div className={styles.child}>
+                  <img
+                    src={elem.sub_comments[0].author_avatar}
+                    alt="Subcomment Avatar"
+                  />
+                  <div>
+                    <p>{elem.sub_comments[0].author_nickname}</p>
+                    <p>{elem.sub_comments[0].text}</p>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

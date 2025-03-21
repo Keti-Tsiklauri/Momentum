@@ -922,7 +922,7 @@
 
   position: absolute;
   width: 741px;
-  height: 975px;
+  min-height: 975px;
   left: 1059px;
   top: 199px;
 
