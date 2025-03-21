@@ -201,7 +201,6 @@ export default function TaskPage({ openTask }) {
               </div>
               <div className={styles.date}>
                 <p>{formatDueDate(selectedElement.due_date)}</p>
-                <p>ID: {selectedElement.id}</p>
               </div>
             </div>
           </div>
