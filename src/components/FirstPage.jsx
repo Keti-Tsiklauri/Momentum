@@ -1,10 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext, useMemo } from "react";
 import styles from "./firstPage.module.css";
 import { GlobalContext } from "../context/globalContext";
 import DropDown from "./DropDown";
 import React from "react";
+
 const FirstPage = () => {
-  const { tasks, statuses, filteredArray, openTask, setOpenTask } =
+  const { tasks, statuses, filteredArray, setOpenTask } =
     useContext(GlobalContext);
 
   // Map for department name replacements
@@ -17,12 +18,7 @@ const FirstPage = () => {
     "ტექნოლოგიების დეპარტამენტი": "ინფ.ტექ.",
     "მედიის დეპარტამენტი": "მედია",
   };
-
-  useEffect(() => {
-    console.log("Tasks updated:", tasks);
-  }, [tasks]); // ✅ Re-run when tasks change
-  // Convert due_date format
-  console.log("archeuli taski", openTask);
+  console.log("taskebu", tasks);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const months = [
@@ -43,23 +39,70 @@ const FirstPage = () => {
       months[date.getMonth()]
     }, ${date.getFullYear()}`;
   };
+
   const handleTaskClick = (task) => {
-    console.log("Clicked Task:", task); // Check what task contains
-    console.log("Task ID:", task.id); // Ensure id is valid
     setOpenTask(task.id);
   };
+
   // Extract selected filters
-  const selectedDepartments = filteredArray
-    .filter((item) => item.type === "department")
-    .map((item) => item.name);
+  const selectedDepartments = useMemo(
+    () =>
+      filteredArray
+        .filter((item) => item.type === "department")
+        .map((item) => item.name),
+    [filteredArray]
+  );
 
-  const selectedPriorities = filteredArray
-    .filter((item) => item.type === "priority")
-    .map((item) => item.id); // Use ID for priority comparison
+  const selectedPriorities = useMemo(
+    () =>
+      filteredArray
+        .filter((item) => item.type === "priority")
+        .map((item) => item.id),
+    [filteredArray]
+  );
 
-  const selectedEmployees = filteredArray
-    .filter((item) => item.type === "employee")
-    .map((item) => String(item.id)); // Convert IDs to strings
+  const selectedEmployees = useMemo(
+    () =>
+      filteredArray
+        .filter((item) => item.type === "employee")
+        .map((item) => String(item.id)),
+    [filteredArray]
+  );
+
+  // Optimize task filtering using `useMemo`
+  const filteredTasksByStatus = useMemo(() => {
+    return statuses.slice(0, 4).map((status) => ({
+      status,
+      tasks: tasks.filter((task) => {
+        const taskEmployeeId = String(task.employee.id);
+
+        const matchesDepartment =
+          selectedDepartments.length === 0 ||
+          selectedDepartments.includes(task.employee.department.name);
+
+        const matchesPriority =
+          selectedPriorities.length === 0 ||
+          selectedPriorities.includes(task.priority.id);
+
+        const matchesEmployee =
+          selectedEmployees.length === 0 ||
+          selectedEmployees.includes(taskEmployeeId);
+
+        return (
+          matchesDepartment &&
+          matchesPriority &&
+          matchesEmployee &&
+          task.status.id === status.id
+        );
+      }),
+    }));
+  }, [
+    tasks,
+    statuses,
+    selectedDepartments,
+    selectedPriorities,
+    selectedEmployees,
+  ]);
 
   return (
     <div>
@@ -69,100 +112,73 @@ const FirstPage = () => {
       <DropDown />
 
       <div className={styles.container}>
-        {statuses.slice(0, 4).map((status) => {
-          const filteredTasks = tasks.filter((task) => {
-            const taskEmployeeId = String(task.employee.id); // Ensure consistency in ID comparison
-
-            const matchesDepartment =
-              selectedDepartments.length === 0 ||
-              selectedDepartments.includes(task.employee.department.name);
-
-            const matchesPriority =
-              selectedPriorities.length === 0 ||
-              selectedPriorities.includes(task.priority.id);
-
-            const matchesEmployee =
-              selectedEmployees.length === 0 ||
-              selectedEmployees.includes(taskEmployeeId);
-
-            return (
-              matchesDepartment &&
-              matchesPriority &&
-              matchesEmployee &&
-              task.status.id === status.id
-            );
-          });
-          console.log(filteredTasks);
-          return (
-            <div key={status.id} className={styles.statusContainer}>
-              <div className={styles[`statusDiv_${status.id}`]}>
-                <p className={styles[`statusHeader_${status.id}`]}>
-                  {status.name}
-                </p>
-              </div>
-
-              {filteredTasks.length > 0 ? (
-                filteredTasks.map((elem) => (
-                  <div
-                    key={elem.id}
-                    className={styles[`tasks_${status.id}`]}
-                    onClick={() => handleTaskClick(elem)}
-                  >
-                    <p>{elem.id}</p>
-                    <div className={styles.box}>
-                      <div className={styles.box2}>
-                        <div className={styles[`priority_${elem.priority.id}`]}>
-                          <img src={elem.priority.icon} alt="priority icon" />
-                          <p
-                            className={
-                              styles[`priorityType_${elem.priority.id}`]
-                            }
-                          >
-                            {elem.priority.name}
-                          </p>
-                        </div>
+        {filteredTasksByStatus.map(({ status, tasks }) => (
+          <div key={status.id} className={styles.statusContainer}>
+            <div className={styles[`statusDiv_${status.id}`]}>
+              <p className={styles[`statusHeader_${status.id}`]}>
+                {status.name}
+              </p>
+            </div>
+            {tasks.length > 0 ? (
+              tasks.map((elem) => (
+                <div
+                  key={elem.id}
+                  className={styles[`tasks_${status.id}`]}
+                  onClick={() => handleTaskClick(elem)}
+                >
+                  <div className={styles.box}>
+                    <div className={styles.box2}>
+                      <div className={styles[`priority_${elem.priority.id}`]}>
+                        <img src={elem.priority.icon} alt="priority icon" />
                         <p
-                          className={
-                            styles[`department_${elem.employee.department.id}`]
-                          }
+                          className={styles[`priorityType_${elem.priority.id}`]}
                         >
-                          {departmentNameMap[elem.employee.department.name] ||
-                            elem.employee.department.name}
+                          {elem.priority.name}
                         </p>
                       </div>
-                      <p>{formatDate(elem.due_date)}</p>
-                    </div>
-                    <div className={styles.box1}>
-                      <p className={styles.name}>{elem.name}</p>
-                      <p className={styles.description}>
-                        {typeof elem.description === "string"
-                          ? elem.description.length > 100
-                            ? `${elem.description.slice(0, 100)}...`
-                            : elem.description
-                          : "No description available"}
+                      <p>{elem.id}</p>
+                      <p
+                        className={
+                          styles[`department_${elem.employee.department.id}`]
+                        }
+                      >
+                        {departmentNameMap[elem.employee.department.name] ||
+                          elem.employee.department.name}
                       </p>
                     </div>
-                    <div className={styles.tasksFooter}>
-                      <img
-                        src={elem.employee.avatar}
-                        alt="avatar"
-                        className={styles.img}
-                      />
-                      <div className={styles.footer}>
-                        <img src="/public/images/Comments.png" alt="comments" />
-                        <p>{elem.total_comments}</p>
-                      </div>
+                    <p>{formatDate(elem.due_date)}</p>
+                  </div>
+                  <div className={styles.box1}>
+                    <p className={styles.name}>{elem.name}</p>
+                    <p className={styles.description}>
+                      {typeof elem.description === "string"
+                        ? elem.description.length > 100
+                          ? `${elem.description.slice(0, 100)}...`
+                          : elem.description
+                        : "No description available"}
+                    </p>
+                  </div>
+                  <div className={styles.tasksFooter}>
+                    <img
+                      src={elem.employee.avatar}
+                      alt="avatar"
+                      className={styles.img}
+                    />
+                    <div className={styles.footer}>
+                      <img src="/public/images/Comments.png" alt="comments" />
+                      <p>{elem.total_comments}</p>
                     </div>
                   </div>
-                ))
-              ) : (
-                <p className={styles.noTasks}>დავალებები არ არის.</p>
-              )}
-            </div>
-          );
-        })}
+                </div>
+              ))
+            ) : (
+              <p className={styles.noTasks}>დავალებები არ არის.</p>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
 };
+
 export default React.memo(FirstPage);

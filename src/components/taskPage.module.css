@@ -288,11 +288,7 @@
   left: 121px;
   top: 140px;
 }
-.container {
-  display: flex;
-  gap: 10px; /* Adjust the space between divs */
-  align-items: center; /* Align vertically */
-}
+
 .name {
   /* Redberry-ს საიტის ლენდინგის დიზაინი */
 
@@ -348,6 +344,7 @@
   flex: none;
   order: 1;
   flex-grow: 0;
+  margin-top: -60px;
 }
 .taskDetails {
   /* Frame 1000005940 */
@@ -808,16 +805,17 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  padding: 0px 14px;
 }
 
-.dropdown {
+.selector {
   position: absolute;
-  top: 100%;
+  width: 259px;
   left: 0;
   background: white;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100%;
+
   z-index: 10;
 }
 
@@ -847,4 +845,425 @@
   flex: none;
   order: 0;
   flex-grow: 0;
+}
+.con {
+  /* Frame 1000005934 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 18px;
+
+  height: 32px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.container {
+  width: 259px;
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  position: relative; /* Ensures box3 positions relative to container */
+}
+
+.boxes {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  justify-content: space-between;
+  padding: 0px 14px;
+}
+
+.box4 {
+  border-radius: 5px;
+  position: absolute;
+  top: 100%; /* Positions it right below .boxes */
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ced4da;
+  border-top: none;
+  padding-left: 14px;
+  z-index: 10;
+}
+.container1 {
+  width: 259px;
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-bottom: 0; /* Removes bottom border */
+  border-radius: 5px 5px 0 0; /* Only round the top corners */
+  position: relative;
+}
+.box3 {
+  border-radius: 0 0 5px 5px;
+  position: absolute;
+  top: 100%; /* Positions it right below .boxes */
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ced4da;
+  border-top: none;
+  padding-left: 14px;
+  z-index: 10;
+}
+.box3 p {
+  cursor: pointer;
+}
+
+.commentBox {
+  /* Frame 1000005995 */
+
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 741px;
+  height: 975px;
+  left: 1059px;
+  top: 199px;
+
+  background: rgba(248, 243, 254, 0.65);
+  border: 0.3px solid #ddd2ff;
+  border-radius: 10px;
+}
+.addCom {
+  /* Frame 1000005897 */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 18px 20px 15px;
+  gap: 30px;
+
+  position: absolute;
+  width: 651px;
+  height: 135px;
+  left: 45px;
+  top: 40px;
+
+  background: #ffffff;
+  /* Grey SHades/Greyish */
+  border: 0.3px solid #adb5bd;
+  border-radius: 10px;
+}
+.inputCom {
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 17px;
+  width: 610px;
+  height: 100px;
+  color: #898989;
+  border: 0;
+  outline: none;
+  padding: 5px;
+
+  /* Prevent text from being cut off */
+  white-space: pre-wrap; /* Ensures text wraps properly */
+  overflow-wrap: break-word; /* Breaks long words */
+  overflow-y: auto; /* Allows vertical scrolling if needed */
+
+  /* Disable textarea resizing */
+  resize: none;
+}
+
+.inputCom:focus {
+  border: none;
+  outline: none;
+}
+
+.addComment {
+  /* Frame 1000005937 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  gap: 10px;
+
+  margin-left: auto;
+  width: 155px;
+  height: 35px;
+  margin-right: 20px;
+  background: #8338ec;
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* Button */
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #ffffff;
+  cursor: pointer;
+}
+.buttonDiv {
+  /* Frame 1000005895 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  gap: 321px;
+
+  width: 611px;
+  height: 35px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.boxmini {
+  /* Frame 1000005894 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 7px;
+
+  position: absolute;
+  width: 172px;
+  height: 24px;
+  left: 45px;
+  top: 241px;
+}
+.boxmini :nth-child(1) {
+  /* კომენტარები */
+
+  width: 135px;
+  height: 24px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height */
+
+  color: #000000;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.boxmini :nth-child(2) {
+  /* Frame 1000005892 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  width: 30px;
+  height: 22px;
+
+  background: #8338ec;
+  border-radius: 30px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  /* 3 */
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  color: #ffffff;
+  margin-left: -10px;
+}
+.avatar {
+  /* Frame 1000005909 */
+
+  width: 38px;
+  height: 38px;
+
+  background: url();
+  border-radius: 40px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.parent {
+  /* Frame 1000005929 */ /* Frame 1000005929 */
+  margin-left: 20px;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+
+  width: 598px;
+  height: 104px;
+  left: 45px;
+  top: 305px;
+
+  display: flex;
+  padding: 0px;
+  gap: 12px;
+
+  width: 598px;
+  height: 104px;
+  left: 45px;
+  top: 305px;
+}
+.commentsBox {
+  margin-top: 300px;
+}
+.box0 {
+  /* Frame 1000005914 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 548px;
+  height: 104px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.box0 :nth-child(1) {
+  /* Frame 1000005912 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  width: 152px;
+  height: 22px;
+  margin: 0;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.box0 :nth-child(2) {
+  /* Frame 1000005913 */
+  margin: 0;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  width: 548px;
+  height: 38px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.replyDiv {
+  /* Frame 1000005939 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 0px;
+  gap: 6px;
+
+  width: 67px;
+  height: 26px;
+  margin-top: 20px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.reply {
+  /* უპასუხე */
+  cursor: pointer;
+  width: 45px;
+  height: 14px;
+
+  font-family: "FiraGO";
+  font-size: 12px;
+  line-height: 14px;
+  /* identical to box height */
+
+  /* Purple (Accent Color) */
+  color: #8338ec;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.parent :nth-child(1) {
+  /* Frame 1000005909 */
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 40px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.child img {
+  /* Frame 1000005909 */
+
+  width: 38px;
+  height: 38px;
+
+  background: url(.jpg);
+  border-radius: 40px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin-right: 10px;
+}
+.child {
+  display: flex;
+  margin-left: 60px;
+  margin-bottom: 20px;
 }

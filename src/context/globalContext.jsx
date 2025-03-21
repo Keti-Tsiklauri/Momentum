@@ -3,181 +3,66 @@ import React, { createContext, useState, useEffect } from "react";
 // Create Context
 export const GlobalContext = createContext();
 
+// API URL and Authorization Token
+const API_URL = "https://momentum.redberryinternship.ge/api";
+const AUTH_HEADER = {
+  "Content-Type": "application/json",
+  Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
+};
+
 // Create a provider component
 export const GlobalProvider = ({ children }) => {
   const [createNewEmployee, setCreateNewEmployee] = useState(false);
   const [employees, setEmployees] = useState([]);
   const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [statuses, setStatuses] = useState([]);
   const [priorities, setPriorities] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [taskComments, setTaskComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showDepartmentSelector, setShowDepartmentSelector] = useState(false);
   const [showPrioritiesSelector, setShowPrioritiesSelector] = useState(false);
   const [showEmployeesSelector, setShowEmployeesSelector] = useState(false);
   const [filteredArray, setFilteredArray] = useState([]);
   const [clickedIndex, setClickedIndex] = useState(null);
   const [openTask, setOpenTask] = useState(null);
-  // Fetch employees data when the component mounts
-  useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const response = await fetch(
-          "https://momentum.redberryinternship.ge/api/employees",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
-            },
-          }
-        );
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch employee data");
-        }
+  // Fetch data helper function
+  const fetchData = async (endpoint, setState) => {
+    try {
+      const response = await fetch(`${API_URL}/${endpoint}`, {
+        method: "GET",
+        headers: AUTH_HEADER,
+      });
 
-        const data = await response.json();
-
-        setEmployees(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${endpoint} data`);
       }
-    };
 
-    fetchEmployees();
-  }, []); // Empty dependency array ensures this effect runs once on mount
+      const data = await response.json();
+      setState(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // Fetch tasks data when the component mounts
+  // Fetch all necessary data
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch(
-          "https://momentum.redberryinternship.ge/api/tasks",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a", // Ensure the token is correct
-            },
-          }
-        );
+    fetchData("employees", setEmployees);
+    fetchData("tasks", setTasks);
+    fetchData("statuses", setStatuses);
+    fetchData("priorities", setPriorities);
+    fetchData("departments", setDepartments);
+  }, []);
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch task data");
-        }
-
-        const data = await response.json();
-
-        setTasks(data);
-      } catch (err) {
-        setError(err.message); // Set the error message if there's an issue
-      } finally {
-        setLoading(false); // Set loading to false when the request is done
-      }
-    };
-
-    fetchTasks();
-  }, []); // Empty dependency array ensures this effect runs once on mount
-  //fetch statuses
+  // Fetch task comments when openTask changes
   useEffect(() => {
-    const fetchStatuses = async () => {
-      try {
-        const response = await fetch(
-          "https://momentum.redberryinternship.ge/api/statuses",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch task data");
-        }
-
-        const data = await response.json();
-
-        setStatuses(data); // Set the fetched task data to state
-      } catch (err) {
-        setError(err.message); // Set the error message if there's an issue
-      } finally {
-        setLoading(false); // Set loading to false when the request is done
-      }
-    };
-
-    fetchStatuses();
-  }, []); // Empty dependency array ensures this effect runs once on mount
-  console.log("aaaaa", employees);
-  //fetch priorities
-  useEffect(() => {
-    const fetchPriorities = async () => {
-      try {
-        const response = await fetch(
-          "https://momentum.redberryinternship.ge/api/priorities",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch priorities data");
-        }
-
-        const data = await response.json();
-
-        setPriorities(data); // Set the fetched task data to state
-      } catch (err) {
-        setError(err.message); // Set the error message if there's an issue
-      } finally {
-        setLoading(false); // Set loading to false when the request is done
-      }
-    };
-
-    fetchPriorities();
-  }, []); // Empty dependency array ensures this effect runs once on mount
-
-  //fetch departments
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      try {
-        const response = await fetch(
-          "https://momentum.redberryinternship.ge/api/departments",
-
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch priorities data");
-        }
-
-        const data = await response.json();
-
-        setDepartments(data); // Set the fetched task data to state
-      } catch (err) {
-        setError(err.message); // Set the error message if there's an issue
-      } finally {
-        setLoading(false); // Set loading to false when the request is done
-      }
-    };
-
-    fetchDepartments();
-  }, []); // Empty dependency array ensures this effect runs once on mount
+    if (!openTask) return;
+    fetchData(`tasks/${openTask}/comments`, setTaskComments);
+  }, [openTask]);
 
   return (
     <GlobalContext.Provider
@@ -185,8 +70,6 @@ export const GlobalProvider = ({ children }) => {
         employees,
         tasks,
         setTasks,
-        loading,
-        error,
         statuses,
         priorities,
         departments,
@@ -205,6 +88,10 @@ export const GlobalProvider = ({ children }) => {
         setEmployees,
         openTask,
         setOpenTask,
+        taskComments,
+        setTaskComments,
+        loading,
+        error,
       }}
     >
       {children}

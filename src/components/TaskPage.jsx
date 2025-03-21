@@ -1,10 +1,33 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import styles from "./taskPage.module.css";
 import { GlobalContext } from "../context/globalContext";
+
 export default function TaskPage({ openTask }) {
-  const { tasks, statuses } = useContext(GlobalContext);
+  const {
+    tasks,
+    statuses,
+    setTasks,
+    setOpenTask,
+    taskComments,
+    setTaskComments,
+  } = useContext(GlobalContext);
+
   const [changeStatus, setChangeStatus] = useState(false);
+  const [replyingTo, setReplyingTo] = useState(null);
+  const inputRef = useRef(null);
+
   const selectedElement = tasks.find((task) => task.id === Number(openTask));
+
+  const handleStatusChange = (newStatus) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === Number(openTask) ? { ...task, status: newStatus } : task
+      )
+    );
+    setOpenTask((prev) => ({ ...prev, status: newStatus }));
+    setChangeStatus(false);
+  };
+
   const departmentNameMap = {
     "ადმინისტრაციის დეპარტამენტი": "ადმინისტრაცია",
     "ადამიანური რესურსების დეპარტამენტი": "ად.რესურს.",
@@ -14,119 +37,188 @@ export default function TaskPage({ openTask }) {
     "ტექნოლოგიების დეპარტამენტი": "ინფ.ტექ.",
     "მედიის დეპარტამენტი": "მედია",
   };
-  const [selectedStatus, setSelectedStatus] = useState(
-    selectedElement.status.name
-  );
-  console.log("Selected Task:", selectedElement);
-  console.log("Priority ID:", selectedElement.priority?.id);
-  console.log("Priority Icon:", selectedElement.priority?.icon);
-  console.log("Department ID:", selectedElement.department?.id);
-  console.log("Department Name:", selectedElement.department?.name);
-  function formatDueDate(dueDate) {
-    const daysOfWeek = ["კვი", "ორშ", "სამ", "ოთხ", "ხუთ", "პარ", "შაბ"];
-
-    const date = new Date(dueDate);
-    const dayOfWeek = daysOfWeek[date.getDay()];
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are 0-based in JS
-    const year = date.getFullYear();
-
-    return `${dayOfWeek} - ${month}/${day}/${year}`;
-  }
 
   const departmentName =
     departmentNameMap[selectedElement?.department?.name] ||
     selectedElement?.department?.name ||
-    "უცნობი დეპარტამენტი"; // Default fallback
-  console.log("selected task", selectedElement);
+    "უცნობი დეპარტამენტი";
+
+  function formatDueDate(dueDate) {
+    const daysOfWeek = ["კვი", "ორშ", "სამ", "ოთხ", "ხუთ", "პარ", "შაბ"];
+    const date = new Date(dueDate);
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${dayOfWeek} - ${month}/${day}/${year}`;
+  }
+
+  function focusInput(parentId) {
+    setReplyingTo(parentId);
+    inputRef.current?.focus();
+  }
+
+  function AddComment() {
+    const text = inputRef.current.value.trim();
+    if (!text) return;
+
+    setTaskComments((prev) => {
+      const updatedComments = [...prev];
+
+      if (replyingTo) {
+        const parentComment = updatedComments.find((c) => c.id === replyingTo);
+        if (parentComment && parentComment.sub_comments.length === 0) {
+          parentComment.sub_comments.push({
+            author_avatar:
+              "https://api.dicebear.com/9.x/thumbs/svg?seed=Chrome34.96.41.35",
+            author_nickname: "Opal",
+            text,
+          });
+        }
+      } else {
+        updatedComments.push({
+          id: updatedComments.length + 1,
+          author_avatar:
+            "https://api.dicebear.com/9.x/thumbs/svg?seed=Chrome34.96.41.35",
+          author_nickname: "Opal",
+          text,
+          parent_id: null,
+          sub_comments: [],
+        });
+      }
+
+      return updatedComments;
+    });
+
+    inputRef.current.value = "";
+    setReplyingTo(null);
+  }
+
   return (
-    <div>
-      <div className={styles.box}>
-        <div className={styles.container}>
-          <div className={styles[`priority_${selectedElement.priority.id}`]}>
-            <img src={selectedElement.priority.icon} />
-            <p>{selectedElement?.priority.name}</p>
-          </div>
-          <div
-            className={styles[`department_${selectedElement.department.id}`]}
-          >
-            <p>{departmentName}</p>
-          </div>
-        </div>
-        <p className={styles.name}>{selectedElement.name}</p>
-        <p className={styles.description}>{selectedElement.description}</p>
-      </div>
-      <div className={styles.taskDetails}>
-        <p className={styles.TaskHeader}>დავალების დეტალები</p>
-        <div className={styles.status}>
-          <div className={styles.miniBox}>
-            <img src="images/pie-chart.png" />
-            <p>სტატუსი</p>
-          </div>
-          <div
-            className={styles.selector}
-            onClick={() => setChangeStatus((prev) => !prev)}
-          >
-            <div className={styles.div}>
-              <p>{selectedStatus}</p>
-              <img
-                src={
-                  changeStatus ? "images/arrow-up.png" : "images/arrow-down.png"
-                }
-                alt="Toggle dropdown"
-              />
+    <div className={styles.containerForTask}>
+      <div>
+        <div className={styles.box}>
+          <div className={styles.con}>
+            <div className={styles[`priority_${selectedElement.priority.id}`]}>
+              <img src={selectedElement.priority.icon} />
+              <p>{selectedElement?.priority.name}</p>
             </div>
+            <div
+              className={styles[`department_${selectedElement.department.id}`]}
+            >
+              <p>{departmentName}</p>
+            </div>
+          </div>
+          <p className={styles.name}>{selectedElement.name}</p>
+          <p className={styles.description}>{selectedElement.description}</p>
+        </div>
 
-            {changeStatus && (
-              <div className={styles.dropdown}>
-                {statuses.map((elem) => (
-                  <p
-                    key={elem.id || elem.name}
-                    onClick={() => {
-                      setSelectedStatus(elem.name);
-                      setChangeStatus(false); // Close dropdown after selection
-                    }}
-                  >
-                    {elem.name}
+        <div className={styles.taskDetails}>
+          <p className={styles.TaskHeader}>დავალების დეტალები</p>
+          <div className={styles.status}>
+            <div className={styles.miniBox}>
+              <img src="images/pie-chart.png" />
+              <p>სტატუსი</p>
+            </div>
+            <div
+              className={changeStatus ? styles.container1 : styles.container}
+            >
+              <div
+                className={styles.boxes}
+                onClick={() => setChangeStatus((prev) => !prev)}
+              >
+                <p>{selectedElement?.status?.name}</p>
+                <img
+                  src={
+                    changeStatus
+                      ? "images/arrow-up.png"
+                      : "images/arrow-down.png"
+                  }
+                />
+              </div>
+              <div className={changeStatus ? styles.box3 : styles.box4}>
+                {changeStatus &&
+                  statuses.map((elem, index) => (
+                    <p key={index} onClick={() => handleStatusChange(elem)}>
+                      {elem.name}
+                    </p>
+                  ))}
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.employees}>
+            <div className={styles.box1}>
+              <div className={styles.box2}>
+                <img src="images/Frame.png" />
+                <p>თანამშრომელი</p>
+              </div>
+              <div className={styles.employee}>
+                <div className={styles.mini2}>
+                  <p>{selectedElement.department.name}</p>
+                </div>
+                <div className={styles.mini1}>
+                  <img src={selectedElement.employee.avatar} />
+                  <p>
+                    {selectedElement.employee.name}{" "}
+                    {selectedElement.employee.surname}
                   </p>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        <div className={styles.employees}>
-          <div className={styles.box1}>
-            <div className={styles.box2}>
-              <img src="images/Frame.png" />
-              <p>თანამშრომელი</p>
-            </div>
-
-            <div className={styles.employee}>
-              <div className={styles.mini2}>
-                <p>{selectedElement.department.name}</p>
-              </div>
-
-              <div className={styles.mini1}>
-                <img src={selectedElement.employee.avatar} />
-                <p>
-                  {selectedElement.employee.name}{" "}
-                  {selectedElement.employee.surname}
-                </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.box1}>
-            <div className={styles.box2}>
-              <img src="images/calendar.png" />
-              <p>დავალების ვადა</p>
-            </div>
-
-            <div className={styles.date}>
-              <p>{formatDueDate(selectedElement.due_date)}</p>
+            <div className={styles.box1}>
+              <div className={styles.box2}>
+                <img src="images/calendar.png" />
+                <p>დავალების ვადა</p>
+              </div>
+              <div className={styles.date}>
+                <p>{formatDueDate(selectedElement.due_date)}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>{" "}
+      </div>
+
+      {/* Comment Section */}
+      <div className={styles.commentBox}>
+        <p>კომენტარი</p>
+        <div className={styles.addCom}>
+          <textarea
+            ref={inputRef}
+            placeholder="დაწერე კომენტარი"
+            className={styles.inputCom}
+          />
+          <button className={styles.addComment} onClick={AddComment}>
+            დააკომენტარე
+          </button>
+        </div>
+
+        <div className={styles.boxmini}>
+          <p>კომენტარები</p>
+          <p>{taskComments?.length}</p>
+        </div>
+
+        <div className={styles.commentsBox}>
+          {taskComments.map((elem) => (
+            <div key={elem.id}>
+              <div className={styles.parent}>
+                <img src={elem.author_avatar} className={styles.avatar} />
+                <div className={styles.box0}>
+                  <p>{elem.author_nickname}</p>
+                  <p>{elem.text}</p>
+                  {elem.sub_comments.length === 0 && (
+                    <img
+                      src="images/Frame 1000005939.png"
+                      className={styles.reply}
+                      onClick={() => focusInput(elem.id)}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
