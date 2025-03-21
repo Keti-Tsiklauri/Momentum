@@ -165,7 +165,7 @@ const FirstPage = () => {
                       className={styles.img}
                     />
                     <div className={styles.footer}>
-                      <img src="/public/images/Comments.png" alt="comments" />
+                      <img src="images/Comments.png" alt="comments" />
                       <p>{elem.total_comments}</p>
                     </div>
                   </div>

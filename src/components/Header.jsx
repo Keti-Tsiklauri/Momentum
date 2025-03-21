@@ -10,7 +10,7 @@ export default function Header() {
     <div className={styles.header}>
       <Link className={styles.icon} to="/" onClick={() => SetOpenTask(null)}>
         <p>Momentum</p>
-        <img src="public/images/Hourglass.png" height="30px" width="30px" />
+        <img src="images/Hourglass.png" height="30px" width="30px" />
       </Link>
       <div className={styles.buttons}>
         <Link
