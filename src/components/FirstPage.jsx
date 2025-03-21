@@ -136,7 +136,7 @@ const FirstPage = () => {
                           {elem.priority.name}
                         </p>
                       </div>
-                      <p>{elem.id}</p>
+
                       <p
                         className={
                           styles[`department_${elem.employee.department.id}`]
