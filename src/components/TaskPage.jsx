@@ -7,24 +7,26 @@ export default function TaskPage({ openTask }) {
     tasks,
     statuses,
     setTasks,
-    setOpenTask,
+    // Removed setOpenTask update to keep openTask intact.
     taskComments,
     setTaskComments,
   } = useContext(GlobalContext);
-
+  console.log(tasks);
   const [changeStatus, setChangeStatus] = useState(false);
   const [replyingTo, setReplyingTo] = useState(null);
+  const [replyText, setReplyText] = useState(""); // New state for reply text
+  const [showReplyInput, setShowReplyInput] = useState(false); // Controls visibility of reply input
   const inputRef = useRef(null);
 
   const selectedElement = tasks.find((task) => task.id === Number(openTask));
 
+  // Update only the tasks array: find the task with the matching id and update its status.
   const handleStatusChange = (newStatus) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === Number(openTask) ? { ...task, status: newStatus } : task
       )
     );
-    setOpenTask((prev) => ({ ...prev, status: newStatus }));
     setChangeStatus(false);
   };
 
@@ -46,37 +48,50 @@ export default function TaskPage({ openTask }) {
   function formatDueDate(dueDate) {
     const daysOfWeek = ["კვი", "ორშ", "სამ", "ოთხ", "ხუთ", "პარ", "შაბ"];
     const date = new Date(dueDate);
-    const dayOfWeek = daysOfWeek[date.getDay()];
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${dayOfWeek} - ${month}/${day}/${year}`;
+    return `${daysOfWeek[date.getDay()]} - ${
+      date.getMonth() + 1
+    }/${date.getDate()}/${date.getFullYear()}`;
   }
 
+  // When reply image is clicked, open the reply input for that comment.
   function focusInput(parentId) {
     setReplyingTo(parentId);
-    inputRef.current?.focus();
+    setReplyText(""); // Reset reply text when switching comments
+    setShowReplyInput(true);
   }
 
+  // Add comment: if replyingTo is set, add as sub-comment; otherwise, add as parent comment.
   function AddComment() {
-    const text = inputRef.current.value.trim();
+    const text = inputRef.current?.value?.trim() || replyText.trim();
     if (!text) return;
 
     setTaskComments((prev) => {
       const updatedComments = [...prev];
 
       if (replyingTo) {
-        const parentComment = updatedComments.find((c) => c.id === replyingTo);
-        if (parentComment && parentComment.sub_comments.length === 0) {
-          parentComment.sub_comments.push({
-            author_avatar:
-              "https://api.dicebear.com/9.x/thumbs/svg?seed=Chrome34.96.41.35",
-            author_nickname: "Opal",
-            text,
-          });
+        // Find the parent comment
+        const parentIndex = updatedComments.findIndex(
+          (c) => c.id === replyingTo
+        );
+        if (
+          parentIndex !== -1 &&
+          updatedComments[parentIndex].sub_comments.length === 0
+        ) {
+          updatedComments[parentIndex] = {
+            ...updatedComments[parentIndex],
+            sub_comments: [
+              {
+                author_avatar:
+                  "https://api.dicebear.com/9.x/thumbs/svg?seed=Chrome34.96.41.35",
+                author_nickname: "Opal",
+                text,
+              },
+            ],
+          };
         }
       } else {
-        updatedComments.push({
+        // Add new parent comment at the beginning
+        updatedComments.unshift({
           id: updatedComments.length + 1,
           author_avatar:
             "https://api.dicebear.com/9.x/thumbs/svg?seed=Chrome34.96.41.35",
@@ -90,8 +105,12 @@ export default function TaskPage({ openTask }) {
       return updatedComments;
     });
 
-    inputRef.current.value = "";
+    if (!replyingTo) {
+      inputRef.current.value = "";
+    }
     setReplyingTo(null);
+    setReplyText("");
+    setShowReplyInput(false);
   }
 
   return (
@@ -100,7 +119,7 @@ export default function TaskPage({ openTask }) {
         <div className={styles.box}>
           <div className={styles.con}>
             <div className={styles[`priority_${selectedElement.priority.id}`]}>
-              <img src={selectedElement.priority.icon} />
+              <img src={selectedElement.priority.icon} alt="Priority Icon" />
               <p>{selectedElement?.priority.name}</p>
             </div>
             <div
@@ -117,7 +136,7 @@ export default function TaskPage({ openTask }) {
           <p className={styles.TaskHeader}>დავალების დეტალები</p>
           <div className={styles.status}>
             <div className={styles.miniBox}>
-              <img src="images/pie-chart.png" />
+              <img src="images/pie-chart.png" alt="Status Icon" />
               <p>სტატუსი</p>
             </div>
             <div
@@ -134,23 +153,29 @@ export default function TaskPage({ openTask }) {
                       ? "images/arrow-up.png"
                       : "images/arrow-down.png"
                   }
+                  alt="Arrow"
                 />
               </div>
-              <div className={changeStatus ? styles.box3 : styles.box4}>
-                {changeStatus &&
-                  statuses.map((elem, index) => (
-                    <p key={index} onClick={() => handleStatusChange(elem)}>
+              {changeStatus && (
+                <div className={styles.box3}>
+                  {statuses.map((elem, index) => (
+                    <p
+                      key={index}
+                      onClick={() => handleStatusChange(elem)}
+                      className={styles.statusSelector}
+                    >
                       {elem.name}
                     </p>
                   ))}
-              </div>
+                </div>
+              )}
             </div>
           </div>
 
           <div className={styles.employees}>
             <div className={styles.box1}>
               <div className={styles.box2}>
-                <img src="images/Frame.png" />
+                <img src="images/Frame.png" alt="Employee Icon" />
                 <p>თანამშრომელი</p>
               </div>
               <div className={styles.employee}>
@@ -158,7 +183,10 @@ export default function TaskPage({ openTask }) {
                   <p>{selectedElement.department.name}</p>
                 </div>
                 <div className={styles.mini1}>
-                  <img src={selectedElement.employee.avatar} />
+                  <img
+                    src={selectedElement.employee.avatar}
+                    alt="Employee Avatar"
+                  />
                   <p>
                     {selectedElement.employee.name}{" "}
                     {selectedElement.employee.surname}
@@ -168,11 +196,12 @@ export default function TaskPage({ openTask }) {
             </div>
             <div className={styles.box1}>
               <div className={styles.box2}>
-                <img src="images/calendar.png" />
+                <img src="images/calendar.png" alt="Calendar Icon" />
                 <p>დავალების ვადა</p>
               </div>
               <div className={styles.date}>
                 <p>{formatDueDate(selectedElement.due_date)}</p>
+                <p>ID: {selectedElement.id}</p>
               </div>
             </div>
           </div>
@@ -196,9 +225,10 @@ export default function TaskPage({ openTask }) {
           <p>კომენტარები</p>
           <p>{taskComments?.length}</p>
         </div>
+
         <div className={styles.commentsBox}>
-          {taskComments.map((elem, index) => (
-            <div key={index}>
+          {taskComments.map((elem) => (
+            <div key={elem.id}>
               <div className={styles.parent}>
                 <img
                   src={elem.author_avatar}
@@ -208,6 +238,7 @@ export default function TaskPage({ openTask }) {
                 <div className={styles.box0}>
                   <p>{elem.author_nickname}</p>
                   <p>{elem.text}</p>
+                  {/* Only show reply icon if no sub-comment exists */}
                   {elem.sub_comments.length === 0 && (
                     <img
                       src="images/Frame 1000005939.png"
@@ -219,6 +250,34 @@ export default function TaskPage({ openTask }) {
                 </div>
               </div>
 
+              {/* Reply textarea & button for the comment being replied to */}
+              {replyingTo === elem.id && showReplyInput && (
+                <div className={styles.replyInput}>
+                  <textarea
+                    onChange={(e) => setReplyText(e.target.value)}
+                    value={replyText}
+                    className={styles.inputCom}
+                    placeholder="უპასუხეთ კომენტარს..."
+                  />
+                  <div className={styles.addCommentsButtons}>
+                    <button className={styles.addComment} onClick={AddComment}>
+                      დააკომენტარე
+                    </button>
+                    <button
+                      className={styles.closeReply}
+                      onClick={() => {
+                        setShowReplyInput(false);
+                        setReplyingTo(null);
+                        setReplyText("");
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Display sub-comment (only one allowed) */}
               {elem.sub_comments.length > 0 && (
                 <div className={styles.child}>
                   <img

@@ -10,15 +10,20 @@ const AUTH_HEADER = {
   Authorization: "Bearer 9e71b5fc-2b77-4c06-a93a-24765463646a",
 };
 
-// Create a provider component
 export const GlobalProvider = ({ children }) => {
   const [createNewEmployee, setCreateNewEmployee] = useState(false);
   const [employees, setEmployees] = useState([]);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const localTasks = localStorage.getItem("tasks");
+    return localTasks ? JSON.parse(localTasks) : [];
+  });
   const [statuses, setStatuses] = useState([]);
   const [priorities, setPriorities] = useState([]);
   const [departments, setDepartments] = useState([]);
-  const [taskComments, setTaskComments] = useState([]);
+  const [taskComments, setTaskComments] = useState(() => {
+    const localComments = localStorage.getItem("taskComments");
+    return localComments ? JSON.parse(localComments) : [];
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showDepartmentSelector, setShowDepartmentSelector] = useState(false);
@@ -28,6 +33,15 @@ export const GlobalProvider = ({ children }) => {
   const [clickedIndex, setClickedIndex] = useState(null);
   const [openTask, setOpenTask] = useState(null);
 
+  // Save tasks and taskComments to localStorage when they update
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    localStorage.setItem("taskComments", JSON.stringify(taskComments));
+  }, [taskComments]);
+
   // Fetch data helper function
   const fetchData = async (endpoint, setState) => {
     try {
@@ -35,11 +49,9 @@ export const GlobalProvider = ({ children }) => {
         method: "GET",
         headers: AUTH_HEADER,
       });
-
       if (!response.ok) {
         throw new Error(`Failed to fetch ${endpoint} data`);
       }
-
       const data = await response.json();
       setState(data);
     } catch (err) {
@@ -49,10 +61,13 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  // Fetch all necessary data
+  // Fetch all necessary data on mount
   useEffect(() => {
     fetchData("employees", setEmployees);
-    fetchData("tasks", setTasks);
+    // Only fetch tasks if localStorage is empty
+    if (tasks.length === 0) {
+      fetchData("tasks", setTasks);
+    }
     fetchData("statuses", setStatuses);
     fetchData("priorities", setPriorities);
     fetchData("departments", setDepartments);

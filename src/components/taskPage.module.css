@@ -1267,3 +1267,61 @@
   margin-left: 60px;
   margin-bottom: 20px;
 }
+.addCommentsButtons {
+  display: flex;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.addCommentsButtons :nth-child(2) {
+  /* Frame 1000005937 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  gap: 10px;
+
+  width: 155px;
+  height: 35px;
+  margin-right: 20px;
+  background: #716c7a;
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0; /* Button */
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #ffffff;
+  cursor: pointer;
+}
+.statusSelector {
+  white-space: nowrap; /* საშუალო */
+
+  width: 207px;
+  height: 17px;
+
+  font-family: "FiraGO";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey SHades/Blackish */
+  color: #0d0f10;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}

@@ -5,9 +5,9 @@ import DropDown from "./DropDown";
 import React from "react";
 
 const FirstPage = () => {
-  const { tasks, statuses, filteredArray, setOpenTask } =
+  const { tasks, statuses, filteredArray, setOpenTask, openTask } =
     useContext(GlobalContext);
-
+  console.log("opentask", openTask);
   // Map for department name replacements
   const departmentNameMap = {
     "ადმინისტრაციის დეპარტამენტი": "ადმინისტრაცია",

@@ -13,11 +13,11 @@ export default function EmployeesFilter() {
 
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
-  const [selectedEmployees, setSelectedEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null); // Store only one employee
 
   useEffect(() => {
     if (showEmployeesSelector) {
-      setSelectedEmployees([]); // Reset selection when filter opens
+      setSelectedEmployee(null); // Reset selection when filter opens
     }
   }, [showEmployeesSelector]);
 
@@ -28,7 +28,7 @@ export default function EmployeesFilter() {
         !containerRef.current.contains(event.target)
       ) {
         setShowEmployeesSelector(false);
-        setSelectedEmployees([]); // Reset selection when clicking outside
+        setSelectedEmployee(null); // Reset selection when clicking outside
       }
     };
 
@@ -51,37 +51,32 @@ export default function EmployeesFilter() {
     ).values(),
   ];
 
-  function handleCheckboxChange(event, employee) {
-    const checked = event.target.checked;
-    setSelectedEmployees((prevSelected) =>
-      checked
-        ? [...prevSelected, employee]
-        : prevSelected.filter((emp) => emp.id !== employee.id)
-    );
+  function handleCheckboxChange(employee) {
+    setSelectedEmployee((prev) => (prev?.id === employee.id ? null : employee)); // Toggle selection
   }
 
   function handleButtonClick() {
-    if (selectedEmployees.length > 0) {
+    if (selectedEmployee) {
       setFilteredArray((prevFiltered) => {
-        // Remove previously added employees before updating
-        const withoutOldEmployees = prevFiltered.filter(
-          (item) => !uniqueEmployees.some((e) => e.id === item.id)
+        // Remove previous employee before adding new selection
+        const withoutOldEmployee = prevFiltered.filter(
+          (item) => item.type !== "employee"
         );
 
         return [
-          ...withoutOldEmployees,
-          ...selectedEmployees.map((employee) => ({
-            id: employee.id,
-            name: employee.name,
-            surname: employee.surname,
+          ...withoutOldEmployee,
+          {
+            id: selectedEmployee.id,
+            name: selectedEmployee.name,
+            surname: selectedEmployee.surname,
             type: "employee",
-          })),
+          },
         ];
       });
     }
 
     // Reset selection & close modal when button is clicked
-    setSelectedEmployees([]);
+    setSelectedEmployee(null);
     setShowEmployeesSelector(false);
     setClickedIndex(null);
   }
@@ -96,11 +91,11 @@ export default function EmployeesFilter() {
           {uniqueEmployees.map((elem, index) => (
             <div className={styles.box} key={index}>
               <input
-                type="checkbox"
+                type="radio" // Changed to radio for single selection
                 id={`emp-${index}`}
                 className={styles.checkbox}
-                checked={selectedEmployees.some((emp) => emp.id === elem.id)}
-                onChange={(e) => handleCheckboxChange(e, elem)}
+                checked={selectedEmployee?.id === elem.id}
+                onChange={() => handleCheckboxChange(elem)}
               />
               <img className={styles.image} src={elem.avatar} />
               <label htmlFor={`emp-${index}`} className={styles.emp}>
@@ -112,9 +107,7 @@ export default function EmployeesFilter() {
         <button
           ref={buttonRef}
           className={
-            selectedEmployees.length > 0
-              ? styles.activeButton
-              : styles.buttonOpacity
+            selectedEmployee ? styles.activeButton : styles.buttonOpacity
           }
           onClick={handleButtonClick}
         >
